@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+} from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -7,6 +11,7 @@ import { FormsModule } from "@angular/forms";
   templateUrl: "./to-do-list.html",
   styleUrl: "./to-do-list.css",
   standalone: true,
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoList {

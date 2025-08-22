@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
-import { ToDoList } from "../components/to-do-list/to-do-list";
+import { ToDoList } from "../index";
 @Component({
   selector: "app-root",
   imports: [RouterOutlet, ToDoList],
