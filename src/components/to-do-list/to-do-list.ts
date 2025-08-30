@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  signal,
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -17,11 +18,11 @@ import { FormsModule } from "@angular/forms";
 export class ToDoList {
   article: string | null = null;
 
-  tasks: MyTask[] = [
+  readonly tasks = signal([
     { id: 0, text: "Buy a new gaming laptop" },
     { id: 1, text: "Complete previous task" },
     { id: 2, text: "Create some angular app" },
-  ];
+  ]);
   addTask(): void {
     if (this.article === null || this.article.trim() === "") {
       return;
