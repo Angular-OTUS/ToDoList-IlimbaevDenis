@@ -15,9 +15,9 @@ import {
 })
 export class ToDoListItemComponent {
   readonly taskId = model.required<number>();
-  readonly textTask = model.required<number>();
-  readonly editTasks: OutputEmitterRef<number> = output();
+  readonly textTask = model.required<string | null>();
+  readonly tasksChange: OutputEmitterRef<number> = output();
   deleteTask(id: number): void {
-    this.editTasks.emit(id);
+    this.tasksChange.emit(id);
   }
 }

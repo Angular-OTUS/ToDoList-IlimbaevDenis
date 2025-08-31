@@ -19,7 +19,7 @@
   padding-right: 10px;
   background-color: rgb(255, 0, 0);
 }
-.to-list__item__button:disabled {
+.to-list__item__button:active {
   opacity: 0.5;
 }
 .to-list__item__button p {

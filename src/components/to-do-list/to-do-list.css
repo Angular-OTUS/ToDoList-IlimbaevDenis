@@ -45,7 +45,7 @@
   padding: 5px;
   padding-top: 0px;
 }
-.container-for-adding-task__button:disabled {
+.container-for-adding-task__button:active {
   opacity: 0.5;
 }
 .container-for-adding-task__button p {
