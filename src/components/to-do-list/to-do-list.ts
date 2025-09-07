@@ -6,7 +6,7 @@ import {
   WritableSignal,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { Extensions } from "../../app/extensions";
+import { Extensions, MyTask } from "./to-do-list-helper";
 import { ToDoListItemComponent } from "../to-do-list-item-component/to-do-list-item-component";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -37,17 +37,14 @@ export class ToDoList {
       return;
     }
     this.tasks.update((arr) =>
-      Extensions.addNewEl<MyTask>(arr, {
+      Extensions.addNewEl(arr, {
         id: this.tasks().length,
         text: this.article,
       }),
     );
   }
   deleteTask(id: number): void {
-    this.tasks.update((arr) => Extensions.delNewEl<MyTask>(arr, id));
+    this.tasks.update((arr) => Extensions.delNewEl(arr, id));
   }
 }
-interface MyTask {
-  id: number;
-  text: string | null;
-}
+

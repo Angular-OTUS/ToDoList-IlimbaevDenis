@@ -1,12 +1,16 @@
 <h2 class="header">Todo List</h2>
 <ul class="to-list">
-  @for (task of tasks(); track tasks) {
+  @for (task of tasks(); track task.id) {
     <app-to-do-list-item-component
       [taskId]="task.id"
       [textTask]="task.text"
       (tasksChange)="deleteTask($event)"
     />
+  } 
+  @empty {
+    <li style="color: black;">elements not found</li>
   }
+
 </ul>
 <div class="container-for-adding-task">
   <mat-form-field class="container-for-adding-task__textarea">
