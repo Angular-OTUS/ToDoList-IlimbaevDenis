@@ -1,26 +1,23 @@
 <h2 class="header">Todo List</h2>
 <ul class="to-list">
-  @for (task of tasks; track tasks) {
-    <li class="to-list__item">
-      <p class="to-list__item__text">{{ task.text }}</p>
-      <button
-        class="to-list__item__button"
-        type="submit"
-        (click)="deleteTask(task.id)"
-      >
-        <p>Delete</p>
-      </button>
-    </li>
+  @for (task of tasks(); track task.id) {
+    <app-to-do-list-item-component
+      [taskId]="task.id"
+      [textTask]="task.text"
+      (tasksChange)="deleteTask($event)"
+    />
+  } 
+  @empty {
+    <li style="color: black;">elements not found</li>
   }
+
 </ul>
 <div class="container-for-adding-task">
-  <textarea
-    class="container-for-adding-task__textarea"
-    id="container-for-adding-task__textarea"
-    name="task"
-    placeholder="Add your new todo"
-    [(ngModel)]="article"
-  ></textarea>
+  <mat-form-field class="container-for-adding-task__textarea">
+    <mat-label> Add your new todo</mat-label>
+    <textarea matInput placeholder="Input value" [(ngModel)]="article">
+    </textarea>
+  </mat-form-field>
   <button
     class="container-for-adding-task__button"
     type="submit"

@@ -24,39 +24,7 @@
   flex-direction: column;
   padding: 0;
 }
-.to-list__item {
-  background-color: rgb(218, 218, 218);
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  padding-right: 15px;
-  padding-left: 10px;
-  margin-bottom: 10px;
-}
-.to-list__item__text {
-  color: black;
-  font-weight: 600;
-  text-align: center;
-  font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.to-list__item__button {
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: rgb(218, 218, 218);
-}
-.to-list__item__button:active {
-  background-color: rgb(245, 244, 244);
-}
-.to-list__item__button p {
-  color: black;
-  font-size: 16px;
-  font-weight: 600;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.to-list__item__button :last-child {
-  margin-bottom: 20px;
-}
+
 .container-for-adding-task {
   display: flex;
   flex-direction: row;
@@ -71,16 +39,14 @@
   margin-right: 5px;
 }
 .container-for-adding-task__button {
-  background-color: rgba(173, 81, 226, 0.671);
+  background-color: rgba(42, 243, 16, 0.671);
   border: 2px;
   max-height: 50px;
   padding: 5px;
   padding-top: 0px;
-  border-color: rgba(173, 81, 226, 0.671);
-  border-radius: 5px;
 }
 .container-for-adding-task__button:active {
-  background-color: rgba(205, 139, 243, 0.74);
+  opacity: 0.5;
 }
 .container-for-adding-task__button p {
   color: white;

@@ -1,13 +1,23 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  signal,
   ViewEncapsulation,
+  WritableSignal,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-
+import { Extensions, MyTask } from "./to-do-list-helper";
+import { ToDoListItemComponent } from "../to-do-list-item-component/to-do-list-item-component";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
 @Component({
   selector: "app-to-do-list",
-  imports: [FormsModule],
+  imports: [
+    FormsModule,
+    ToDoListItemComponent,
+    MatInputModule,
+    MatFormFieldModule,
+  ],
   templateUrl: "./to-do-list.html",
   styleUrl: "./to-do-list.css",
   standalone: true,
@@ -17,22 +27,24 @@ import { FormsModule } from "@angular/forms";
 export class ToDoList {
   article: string | null = null;
 
-  tasks: MyTask[] = [
+  readonly tasks: WritableSignal<MyTask[]> = signal<MyTask[]>([
     { id: 0, text: "Buy a new gaming laptop" },
     { id: 1, text: "Complete previous task" },
     { id: 2, text: "Create some angular app" },
-  ];
+  ]);
   addTask(): void {
     if (this.article === null || this.article.trim() === "") {
       return;
     }
-    this.tasks.push({ id: this.tasks.length, text: this.article });
+    this.tasks.update((arr) =>
+      Extensions.addNewEl(arr, {
+        id: this.tasks().length,
+        text: this.article,
+      }),
+    );
   }
   deleteTask(id: number): void {
-    this.tasks.splice(id, 1);
+    this.tasks.update((arr) => Extensions.delNewEl(arr, id));
   }
 }
-interface MyTask {
-  id: number;
-  text: string;
-}
+
