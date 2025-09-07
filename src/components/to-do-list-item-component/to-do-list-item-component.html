@@ -1,10 +1,4 @@
 <li class="to-list__item">
   <p class="to-list__item__text">{{ textTask() }}</p>
-  <button
-    class="to-list__item__button"
-    type="submit"
-    (click)="deleteTask(taskId())"
-  >
-    <p>Delete</p>
-  </button>
+  <app-to-do-button-component   myTitle="Delete task"  (myClickChange)="deleteTask()"/>
 </li>
