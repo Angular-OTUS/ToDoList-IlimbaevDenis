@@ -1,5 +1,5 @@
 <h2 class="header">Todo List</h2>
-<ul class="to-list">
+<ul class="to-list" >
   @if(isLoading()){
     <ngx-spinner 
     color="#000000"
@@ -21,9 +21,9 @@
 <div class="container-for-adding-task">
   <mat-form-field class="container-for-adding-task__textarea">
     <mat-label> Add your new todo</mat-label>
-    <textarea matInput placeholder="Input value" [(ngModel)]="article">
+    <textarea appEnterControl matInput placeholder="Input value" [(ngModel)]="article">
     </textarea>
   </mat-form-field>
  
-  <app-to-do-button-component   myTitle="Add task" (myClickChange)="addTask()"/>
+  <app-to-do-button-component  myTitle="Add task" (myClickChange)="addTask()"/>
 </div>

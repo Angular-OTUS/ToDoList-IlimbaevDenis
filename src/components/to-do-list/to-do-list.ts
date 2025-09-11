@@ -3,6 +3,7 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
+  model,
   OnInit,
   signal,
   WritableSignal,
@@ -15,6 +16,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { CommonModule } from "@angular/common";
 import { ToDoButtonComponent } from "../to-do-button-component/to-do-button-component";
+import { EnterControl } from "../../directives/enter-control-directive/enter-control";
+import {ScrollingModule} from '@angular/cdk/scrolling'
 @Component({
   selector: "app-to-do-list",
   imports: [
@@ -24,7 +27,9 @@ import { ToDoButtonComponent } from "../to-do-button-component/to-do-button-comp
     MatInputModule,
     MatFormFieldModule,
     NgxSpinnerModule,
-    CommonModule
+    CommonModule,
+    EnterControl,
+    ScrollingModule
   ],
   templateUrl: "./to-do-list.html",
   styleUrl: "./to-do-list.css",
@@ -33,7 +38,7 @@ import { ToDoButtonComponent } from "../to-do-button-component/to-do-button-comp
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ToDoList implements OnInit {
-  article: string | null = null;
+  readonly article = model<string>();
   readonly isLoading = signal<boolean>(true);
   readonly tasks: WritableSignal<MyTask[]> = signal<MyTask[]>([
     { id: 0, text: "Buy a new gaming laptop" },
@@ -49,13 +54,13 @@ export class ToDoList implements OnInit {
     }, 500)
   }
   addTask(): void {
-    if (this.article === null || this.article.trim() === "") {
+    if (this.article === null || this.article()?.trim() === "") {
       return;
     }
     this.tasks.update((arr) =>
       Extensions.addNewEl(arr, {
         id: this.tasks().length,
-        text: this.article,
+        text: this.article(),
       }),
     );
   }
@@ -63,4 +68,6 @@ export class ToDoList implements OnInit {
     this.tasks.update((arr) => Extensions.delNewEl(arr, id));
   }
 }
+
+
 

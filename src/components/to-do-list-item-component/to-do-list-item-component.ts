@@ -17,7 +17,7 @@ import { CommonModule } from "@angular/common";
 })
 export class ToDoListItemComponent {
   readonly taskId = model.required<number>();
-  readonly textTask = model.required<string | null>();
+  readonly textTask = model.required<string | undefined>();
   readonly tasksChange: OutputEmitterRef<number> = output();
 
   deleteTask(): void {
