@@ -1,23 +1,22 @@
 <h2 class="header">Todo List</h2>
-<ul class="to-list" >
   @if(isLoading()){
     <ngx-spinner 
     color="#000000"
     type="ball-spin"/>
   }
   @else {
-     @for (task of tasks(); track task.id) {
+     <cdk-virtual-scroll-viewport [itemSize]="tasks().length">
+      <ul  *cdkVirtualFor="let task of tasks()" class="to-list" >
       <app-to-do-list-item-component
         [taskId]="task.id"
         [textTask]="task.text"
         (tasksChange)="deleteTask($event)"
       />
+      </ul>
+    </cdk-virtual-scroll-viewport>
     } 
-    @empty {
-      <li style="color: black;">elements not found</li>
-    }
-  }
-</ul>
+  
+
 <div class="container-for-adding-task">
   <mat-form-field class="container-for-adding-task__textarea">
     <mat-label> Add your new todo</mat-label>
