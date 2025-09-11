@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { ToDoList } from "../index";
+
 @Component({
   selector: "app-root",
   imports: [RouterOutlet, ToDoList],
@@ -9,6 +10,7 @@ import { ToDoList } from "../index";
 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class App {
   protected readonly title = signal("toDoListApp");
 }
