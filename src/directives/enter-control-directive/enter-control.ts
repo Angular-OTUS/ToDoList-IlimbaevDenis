@@ -8,7 +8,7 @@ export class EnterControl {
   textarea = inject(ElementRef);
   @HostListener("window:keydown.enter") OnKeyDownEnter(): void {
     this.parentEl.addTask();
-    this.parentEl.article.set("");
+    this.parentEl.article = "";
     this.textarea.nativeElement["value"] = "";
   }
 }

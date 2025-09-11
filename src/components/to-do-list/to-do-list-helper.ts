@@ -11,4 +11,5 @@ export class Extensions {
 export type MyTask = {
   id: number;
   text: string | undefined;
+  description: string | undefined;
 }

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  HostBinding,
   inject,
   model,
   OnInit,
@@ -37,13 +38,16 @@ import {ScrollingModule} from '@angular/cdk/scrolling'
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ToDoList implements OnInit {
-  readonly article = model<string>();
+export class ToDoList implements OnInit{
+  article: string | undefined = "";
+  stylesForButton = {'width': '200px', 'height': '100px', 'background-color': '#4fc26e', 'color': 'white'}
+  readonly description = model<string>();
+  readonly selectedItemId = signal<number>(0);
   readonly isLoading = signal<boolean>(true);
   readonly tasks: WritableSignal<MyTask[]> = signal<MyTask[]>([
-    { id: 0, text: "Buy a new gaming laptop" },
-    { id: 1, text: "Complete previous task" },
-    { id: 2, text: "Create some angular app" },
+    { id: 0, text: "Buy a new gaming laptop", description: "Tomorrow" },
+    { id: 1, text: "Complete previous task", description: "Now" },
+    { id: 2, text: "Create some angular app", description: "Test" },
   ]);
   private spinner = inject(NgxSpinnerService);
    ngOnInit(): void {
@@ -53,19 +57,24 @@ export class ToDoList implements OnInit {
       this.isLoading.set(false);
     }, 500)
   }
+  
   addTask(): void {
-    if (this.article === null || this.article()?.trim() === "") {
+    if (this.article === null || this.article?.trim() === "") {
       return;
     }
     this.tasks.update((arr) =>
       Extensions.addNewEl(arr, {
         id: this.tasks().length,
-        text: this.article(),
+        text: this.article,
+        description: this.description()
       }),
     );
   }
   deleteTask(id: number): void {
     this.tasks.update((arr) => Extensions.delNewEl(arr, id));
+  }
+  selectId(id: number): void{
+    this.selectedItemId.set(id);
   }
 }
 
