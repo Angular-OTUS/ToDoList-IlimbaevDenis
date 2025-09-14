@@ -73,6 +73,7 @@ export class ToDoList implements OnInit{
   deleteTask(id: number): void {
     this.tasks.update((arr) => Extensions.delNewEl(arr, id));
   }
+  
   selectId(id: number): void{
     this.selectedItemId.set(id);
   }

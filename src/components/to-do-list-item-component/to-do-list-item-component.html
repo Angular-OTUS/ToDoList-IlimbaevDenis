@@ -1,14 +1,13 @@
 <li class="to-list__item" >
   @if(sharedId() === taskId()){
-    <p class="to-list__item__text"  matTooltipPosition="above"  [matTooltip]="textDiscriprion()" >{{ textTask() }}</p>
+    <div  appMyTooltip class="to-list__item__text"  [myTooltipText]="textDiscriprion()"  [styles]="tooltipStyles" [verticalOffset]="40" >
+    <p  >{{ textTask() }}</p>
+    </div>
   }
   @else {
-     <p class="to-list__item__text" >{{ textTask() }}</p>
+    <div class="to-list__item__text">
+    <p>{{ textTask() }}</p>
+    </div>
   }
-  
   <app-to-do-button-component myTitle="Delete task" [(styles)]="stylesForButton"  (myClickChange)="deleteTask()"/>
-  <mat-form-field>
-    <mat-label> Add description for your todo</mat-label>
-    <input appEnterControl matInput [ngModel]="textDiscriprion()"/>
-  </mat-form-field>
 </li>
