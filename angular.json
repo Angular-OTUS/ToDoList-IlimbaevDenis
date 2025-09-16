@@ -3,145 +3,29 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "education-project": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/education-project",
-      "sourceRoot": "projects/education-project/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:application",
-          "options": {
-            "browser": "projects/education-project/src/main.ts",
-            "tsConfig": "projects/education-project/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/education-project/public"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@taiga-ui/icons/src",
-                "output": "assets/taiga-ui/icons"
-              }
-            ],
-            "styles": [
-              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-              "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-              "projects/education-project/src/styles.scss",
-            ]
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular/build:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "education-project:build:production"
-            },
-            "development": {
-              "buildTarget": "education-project:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/education-project/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/education-project/public"
-              }
-            ],
-            "styles": [
-              "projects/education-project/src/styles.scss",
-              
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/education-project/**/*.ts",
-              "projects/education-project/**/*.html"
-            ],
-            "eslintConfig": "projects/education-project/eslint.config.js"
-          }
-        }
-      }
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-
-    "toDoListApp": {
+    "testapp": {
       "projectType": "application",
       "schematics": {},
-      "root": "projects/to-do-list-app",
-      "sourceRoot": "projects/to-do-list-app/src",
+      "root": "",
+      "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "projects/to-do-list-app/src/main.ts",
-            "tsConfig": "projects/to-do-list-app/tsconfig.app.json",
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/to-do-list-app/public"
+                "input": "public"
               }
             ],
             "styles": [
-              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-              "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-               "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+              "src/custom-theme.scss",
+              "src/styles.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
                "node_modules/ngx-spinner/animations/ball-spin.css"
-              "projects/to-do-list-app/src/styles.css"
             ]
           },
           "configurations": {
@@ -172,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "toDoListApp:build:production"
+              "buildTarget": "testapp:build:production"
             },
             "development": {
-              "buildTarget": "toDoListApp:build:development"
+              "buildTarget": "testapp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -186,35 +70,22 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/to-do-list-app/tsconfig.spec.json",
+            "tsConfig": "tsconfig.spec.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/to-do-list-app/public"
+                "input": "public"
               }
             ],
             "styles": [
-              "projects/to-do-list-app/src/styles.css"
+              "src/styles.css"
             ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/to-do-list-app/**/*.ts",
-              "projects/to-do-list-app/**/*.html"
-            ],
-            "eslintConfig": "projects/to-do-list-app/eslint.config.js"
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": false,
-    "schematicCollections": [
-      "angular-eslint"
-    ]
+    "analytics": false
   }
 }

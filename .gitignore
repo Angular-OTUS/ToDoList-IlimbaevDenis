@@ -6,14 +6,6 @@
 /out-tsc
 /bazel-out
 
-# Игнорировать файлы Prettier
-.prettierrc
-.prettierignore
-.prettier-cache
-
-# Игнорировать файлы ESLint
-.eslintrc.js
-.eslintcache
 # Node
 /node_modules
 npm-debug.log
