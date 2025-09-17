@@ -1,5 +1,6 @@
 :host:active{
   opacity: 0.5;
+  background-color: rgb(108, 127, 135);
 }
 .to-list__item {
   background-color: rgb(218, 218, 218);
