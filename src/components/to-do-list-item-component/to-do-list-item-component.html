@@ -1,13 +1,8 @@
 <li class="to-list__item" >
-  @if(sharedId() === taskId()){
+  
     <div  appMyTooltip class="to-list__item__text"  [myTooltipText]="textDiscriprion()"  [styles]="tooltipStyles" [verticalOffset]="40" >
     <p  >{{ textTask() }}</p>
     </div>
-  }
-  @else {
-    <div class="to-list__item__text">
-    <p>{{ textTask() }}</p>
-    </div>
-  }
+  
   <app-to-do-button-component myTitle="Delete task" [(styles)]="stylesForButton"  (myClickChange)="deleteTask()"/>
 </li>
