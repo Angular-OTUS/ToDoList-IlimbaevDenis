@@ -1,8 +1,8 @@
 <li class="to-list__item" >
   
-    <div  appMyTooltip class="to-list__item__text"  [myTooltipText]="textDiscriprion()"  [styles]="tooltipStyles" [verticalOffset]="40" >
-    <p  >{{ textTask() }}</p>
-    </div>
+    <span  appMyTooltip class="to-list__item__text"  [myTooltipText]="textDiscriprion()"  [styles]="tooltipStyles" [verticalOffset]="40" >
+     {{ textTask() }}
+    </span>
   
   <app-to-do-button-component myTitle="Delete task" [(styles)]="stylesForButton"  (myClickChange)="deleteTask()"/>
 </li>

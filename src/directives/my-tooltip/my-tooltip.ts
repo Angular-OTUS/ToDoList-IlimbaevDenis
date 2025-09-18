@@ -9,9 +9,6 @@ import {TooltipStyleConfig} from "./types/tooltip-style-config"
 })
 export class MyTooltip implements OnInit {
 
-  
-  //this.viewContainerRef.createEmbeddedView(this.templateRef)/clear();
-
   renderer = inject(Renderer2);
   host = inject(ElementRef);
   hasEffectRun: boolean = false;
@@ -95,10 +92,6 @@ export class MyTooltip implements OnInit {
     console.log("v offset:" + this.verticalOffset )
 
     const top = hostRect.top - window.scrollY - tooltipRect.height + this.verticalOffset()!; 
-
-    
-
-
 
     const left = hostRect.left - window.scrollX + (hostRect.width / 2) - (tooltipRect.width / 2);
     this.renderer.setStyle(this.wrapper, 'top', `${top}px`);
