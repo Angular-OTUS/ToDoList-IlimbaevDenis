@@ -1,4 +1,8 @@
-<li class="to-list__item">
-  <p class="to-list__item__text">{{ textTask() }}</p>
-  <app-to-do-button-component   myTitle="Delete task"  (myClickChange)="deleteTask()"/>
+<li class="to-list__item" >
+  
+    <span  appMyTooltip class="to-list__item__text"  [myTooltipText]="textDiscriprion()"  [styles]="tooltipStyles" [verticalOffset]="40" >
+     {{ textTask() }}
+    </span>
+  
+  <app-to-do-button-component myTitle="Delete task" [(styles)]="stylesForButton"  (myClickChange)="deleteTask()"/>
 </li>

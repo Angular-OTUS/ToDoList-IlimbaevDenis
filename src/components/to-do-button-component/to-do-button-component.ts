@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, contentChild,
    ElementRef, model, output, 
    OutputEmitterRef,
-   Signal,
    } from '@angular/core';
 @Component({
   selector: 'app-to-do-button-component',
@@ -17,7 +16,11 @@ export class ToDoButtonComponent {
    readonly titleWithContent = contentChild(ElementRef);
    readonly tilte = computed(() => this.computedValue());
    readonly myClickChange: OutputEmitterRef<void> = output();
-
+   readonly styles = model({
+    'width': '200px',
+    'height': '100px',
+    'background-color': 'white'
+  });
    myClick(): void {
      this.myClickChange.emit();
   }

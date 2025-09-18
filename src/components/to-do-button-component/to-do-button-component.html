@@ -1,5 +1,7 @@
   <button
     type="submit"
-    (click)="myClick()">
+     [ngStyle]="styles()"
+    (click)="myClick()"
+    >
     <p>{{tilte()}}</p>
   </button>

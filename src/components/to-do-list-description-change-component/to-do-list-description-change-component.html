@@ -1,0 +1,8 @@
+ <div class="container">
+<mat-form-field>
+    <mat-label> {{description()}}</mat-label>
+    <input appEnterControl matInput [(ngModel)]="innerDescription"/>
+</mat-form-field>
+ <app-to-do-button-component  myTitle="Change description"  [(styles)]="stylesForButton"  (myClickChange)="onChange()"/>
+ </div>
+ 
