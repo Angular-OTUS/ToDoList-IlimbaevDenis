@@ -1,38 +1,36 @@
 <h2 class="header">Todo List</h2>
-<ul class="to-list" >
-  @if(isLoading()){
-    <ngx-spinner 
-    color="#000000"
-    type="ball-spin"/>
-  }
-  @else {
-     @for (task of tasks(); track task.id) {
+<ul class="to-list">
+  @if (isLoading()) {
+    <ngx-spinner color="#000000" type="ball-spin" />
+  } @else {
+    @for (task of tasks(); track task.id) {
       <app-to-do-list-item-component
         [sharedId]="selectedItemId()"
         [taskId]="task.id"
-        [textDiscriprion]="task.description"
+        [list]="tasks()"
         [textTask]="task.text"
         (click)="selectId(task.id)"
         (tasksChange)="deleteTask($event)"
       />
-    } 
-    @empty {
-      <li style="color: black;">elements not found</li>
+    } @empty {
+      <li style="color: black">elements not found</li>
     }
   }
 </ul>
 <div class="container-for-adding-task">
   <div class="container-for-adding-task__inputs">
     <mat-form-field class="container-for-adding-task__inputs__input">
-    <mat-label> Add your new todo</mat-label>
-    <input appEnterControl matInput [(ngModel)]="article"/>
-  </mat-form-field>
- <mat-form-field class="container-for-adding-task__inputs__textarea">
-    <mat-label> Add description for your todo</mat-label>
-    <input appEnterControl matInput [(ngModel)]="description"/>
-  </mat-form-field>
+      <mat-label> Add your new todo</mat-label>
+      <input appEnterControl matInput [(ngModel)]="article" />
+    </mat-form-field>
+    <mat-form-field class="container-for-adding-task__inputs__textarea">
+      <mat-label> Add description for your todo</mat-label>
+      <input appEnterControl matInput [(ngModel)]="description" />
+    </mat-form-field>
+  </div>
+  <app-to-do-button-component
+    myTitle="Add task"
+    [(styles)]="stylesForButton"
+    (myClickChange)="addTask()"
+  />
 </div>
-  <app-to-do-button-component  myTitle="Add task"  [(styles)]="stylesForButton"  (myClickChange)="addTask()"/>
-</div>
-
-
