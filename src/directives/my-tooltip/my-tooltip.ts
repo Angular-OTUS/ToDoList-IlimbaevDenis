@@ -34,6 +34,7 @@ export class MyTooltip implements OnInit {
   ngOnInit(): void {
     this.createTooltip();
     this.setStyle();
+    this.hideEl();
   }
   @HostListener("mouseenter") show(): void{
     this.showEl();
