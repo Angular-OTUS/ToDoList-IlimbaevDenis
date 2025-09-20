@@ -20,6 +20,7 @@ import { ToDoButtonComponent } from '../to-do-button-component/to-do-button-comp
 import { EnterControl } from '../../directives/enter-control-directive/enter-control';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { GetTaskServices } from '../../services/get-tasks-services';
+import { ToastService } from '../../services/toast-service';
 @Component({
   selector: 'app-to-do-list',
   imports: [
@@ -41,6 +42,7 @@ import { GetTaskServices } from '../../services/get-tasks-services';
 })
 export class ToDoList implements OnInit {
   listService = inject(GetTaskServices);
+  toastService = inject(ToastService);
   article: string = '';
   stylesForButton = {
     width: '200px',
@@ -72,9 +74,11 @@ export class ToDoList implements OnInit {
         description: this.description(),
       }),
     );
+    this.toastService.addToast(`Add task: ${this.article}`);
   }
   deleteTask(id: number): void {
     this.tasks.update((arr) => Extensions.delNewEl(arr, id));
+    this.toastService.addToast(`Delete task with id: ${id}`);
   }
   changeTitle(title: string) {
     this.tasks.update((arr) => Extensions.updateElProp(arr, this.selectedItemId(), 'text', title));
