@@ -7,10 +7,12 @@ import {
   input,
   linkedSignal,
   model,
+  OnChanges,
   OnInit,
   output,
   OutputEmitterRef,
   signal,
+  SimpleChanges,
 } from '@angular/core';
 import { ToDoButtonComponent } from '../to-do-button-component/to-do-button-component';
 import { CommonModule } from '@angular/common';
@@ -55,13 +57,14 @@ export class ToDoListItemComponent {
   readonly sharedId = model.required<number>();
   readonly textTask = model.required<string>();
   readonly textTaskChange: OutputEmitterRef<string> = output();
-
   readonly tasksChange: OutputEmitterRef<number> = output();
+
   deleteTask(): void {
     this.tasksChange.emit(this.taskId());
   }
   changeText(): void {
     if (this.newTitle === null || this.newTitle.trim() === '') return;
+    this.titleIsChange.set(true);
     this.textTaskChange.emit(this.newTitle);
   }
   get tooltipStyles(): TooltipStyleConfig {
