@@ -7,18 +7,19 @@ export class Extensions {
     arr.splice(id, 1);
     return arr;
   }
-  static updateElProp<K extends keyof MyTask>(arr: 
-    MyTask[], id: number, 
-    propertyForChange: K, 
-    newValue: any): MyTask[] 
-  {
-    const obj = arr[id]
+  static updateElProp<K extends keyof MyTask>(
+    arr: MyTask[],
+    id: number,
+    propertyForChange: K,
+    newValue: any,
+  ): MyTask[] {
+    const obj = arr[id];
     obj[propertyForChange] = newValue;
     return arr;
   }
 }
 export type MyTask = {
   id: number;
-  text: string | undefined;
-  description: string | undefined
-}
+  text: string;
+  description: string | undefined;
+};

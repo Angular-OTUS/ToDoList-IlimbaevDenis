@@ -1,3 +1,8 @@
 <app-to-do-list />
-<app-to-do-list-description-change-component [list]="tasks()" [sharedId]="selectedItemId()" (descriptionChange)="updateDescription($event)" />
+<app-to-do-list-description-change-component
+  [list]="tasks()"
+  [sharedId]="selectedItemId()"
+  (descriptionChange)="updateDescription($event)"
+/>
+<app-to-do-list-toast-component />
 <router-outlet />

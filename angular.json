@@ -25,7 +25,7 @@
               "src/custom-theme.scss",
               "src/styles.css",
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
-               "node_modules/ngx-spinner/animations/ball-spin.css"
+              "node_modules/ngx-spinner/animations/ball-spin.css"
             ]
           },
           "configurations": {
@@ -52,6 +52,12 @@
           },
           "defaultConfiguration": "production"
         },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.component.html"]
+          }
+        },
         "serve": {
           "builder": "@angular/build:dev-server",
           "configurations": {
@@ -77,9 +83,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ]
+            "styles": ["src/styles.css"]
           }
         }
       }

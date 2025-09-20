@@ -1,8 +1,37 @@
-<li class="to-list__item" >
-  
-    <span  appMyTooltip class="to-list__item__text"  [myTooltipText]="textDiscriprion()"  [styles]="tooltipStyles" [verticalOffset]="40" >
-     {{ textTask() }}
+<li class="to-list__item">
+  @if (!titleIsChange() && sharedId() == taskId()) {
+    <div
+      appMyTooltip
+      class="to-list__item__text"
+      style="display: flex; width: 50%"
+      [myTooltipText]="textDiscriprion()"
+      [styles]="tooltipStyles"
+      [verticalOffset]="40"
+    >
+      <mat-form-field class="to-list__item__text__input">
+        <mat-label>Change your title</mat-label>
+        <input appEnterControl matInput [(ngModel)]="newTitle" />
+      </mat-form-field>
+      <app-to-do-button-component
+        myTitle="Change title"
+        [(styles)]="stylesForButtonChangeTitle"
+        (myClickChange)="changeText()"
+      />
+    </div>
+  } @else {
+    <span
+      appMyTooltip
+      class="to-list__item__text"
+      [myTooltipText]="textDiscriprion()"
+      [styles]="tooltipStyles"
+      [verticalOffset]="40"
+    >
+      <p>{{ textTask() }}</p>
     </span>
-  
-  <app-to-do-button-component myTitle="Delete task" [(styles)]="stylesForButton"  (myClickChange)="deleteTask()"/>
+  }
+  <app-to-do-button-component
+    myTitle="Delete task"
+    [(styles)]="stylesForButton"
+    (myClickChange)="deleteTask()"
+  />
 </li>
