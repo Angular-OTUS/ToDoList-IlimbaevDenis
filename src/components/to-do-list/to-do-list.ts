@@ -72,7 +72,7 @@ export class ToDoList implements OnInit {
         id: this.tasks().length,
         text: this.article,
         description: this.description(),
-      }),
+      })
     );
     this.toastService.addToast(`Add task: ${this.article}`);
   }
@@ -82,6 +82,7 @@ export class ToDoList implements OnInit {
   }
   changeTitle(title: string) {
     this.tasks.update((arr) => Extensions.updateElProp(arr, this.selectedItemId(), 'text', title));
+    this.toastService.addToast(`Change title element id: ${this.selectedItemId()}`);
   }
   selectId(id: number): void {
     this.selectedItemId.set(id);

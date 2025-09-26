@@ -1,8 +1,8 @@
 .toast-list {
   width: 60%;
   position: absolute;
-  /* top */
-  /* left */
+  top: 30px;
+  left: 30px;
   list-style: none;
 }
 .toast-list__item {

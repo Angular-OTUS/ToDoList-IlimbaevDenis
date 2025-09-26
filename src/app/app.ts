@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   linkedSignal,
   signal,
   viewChild,
@@ -11,6 +12,7 @@ import { ToDoList } from '../index';
 import { Extensions } from '../components/to-do-list/to-do-list-helper';
 import { ToDoListDescriptionChangeComponent } from '../components/to-do-list-description-change-component/to-do-list-description-change-component';
 import { ToDoListToastComponent } from '../components/to-do-list-toast-component/to-do-list-toast-component';
+import { ToastService } from '../services/toast-service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +23,8 @@ import { ToDoListToastComponent } from '../components/to-do-list-toast-component
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
+  toastService = inject(ToastService);
+
   readonly toDoListComponent = viewChild(ToDoList);
 
   readonly tasks = linkedSignal(() => this.toDoListComponent()?.tasks());
@@ -31,7 +35,8 @@ export class App {
 
   updateDescription(descriptionArg: string): void {
     this.tasks.update((arr) =>
-      Extensions.updateElProp(arr!, this.selectedItemId(), 'description', descriptionArg),
+      Extensions.updateElProp(arr!, this.selectedItemId(), 'description', descriptionArg)
     );
+    this.toastService.addToast(`Change desc element id: ${this.selectedItemId()}`);
   }
 }

@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  DestroyRef,
   ElementRef,
   inject,
   InjectionToken,
@@ -13,6 +14,7 @@ import {
 } from '@angular/core';
 import { ToastService, ToastType } from '../../services/toast-service';
 import { CommonModule } from '@angular/common';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-to-do-list-toast-component',
   imports: [CommonModule],
@@ -39,6 +41,7 @@ export class ToDoListToastComponent implements AfterViewInit, OnDestroy {
   // p?: HTMLElement;
   private itemCounter = 0;
   private intervalId?: number;
+
   readonly toastes = signal(this.toastService.textArray);
   //readonly nativeEl = viewChild('mylist');
   @ViewChild('mylist', { static: false }) nativeEl?: ElementRef;
@@ -74,8 +77,11 @@ export class ToDoListToastComponent implements AfterViewInit, OnDestroy {
     this.renderer.appendChild(li, p);
     this.renderer.appendChild(this.nativeEl?.nativeElement, li);
 
-    this.renderer.removeChild(p, li);
-    this.renderer.removeChild(this.nativeEl?.nativeElement, li);
+    setTimeout(() => {
+      this.renderer.removeChild(p, li);
+      this.renderer.removeChild(this.nativeEl?.nativeElement, li);
+    }, this.interavalForOutputToast);
+
     this.itemCounter++;
   }
   colorRandomiser(): string {
