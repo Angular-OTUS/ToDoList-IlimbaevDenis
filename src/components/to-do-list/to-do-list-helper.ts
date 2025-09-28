@@ -22,4 +22,5 @@ export type MyTask = {
   id: number;
   text: string;
   description: string | undefined;
+  status: 'Progress' | 'Completed';
 };

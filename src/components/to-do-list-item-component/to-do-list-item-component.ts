@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MyTooltip } from '../../directives/my-tooltip/my-tooltip';
 import { TooltipStyleConfig } from '../../directives/my-tooltip/types/tooltip-style-config';
+import { ToDoListItemCheckboxComponent } from '../to-do-list-item-checkbox-component/to-do-list-item-checkbox-component';
 @Component({
   selector: 'app-to-do-list-item-component',
   imports: [
@@ -31,6 +32,7 @@ import { TooltipStyleConfig } from '../../directives/my-tooltip/types/tooltip-st
     FormsModule,
     MatInputModule,
     MyTooltip,
+    ToDoListItemCheckboxComponent,
   ],
   templateUrl: './to-do-list-item-component.html',
   styleUrl: './to-do-list-item-component.css',
@@ -42,23 +44,33 @@ export class ToDoListItemComponent {
 
   stylesForButton = {
     width: '100px',
-    height: '100px',
-    'background-color': '#f5535e',
+    height: '50px',
+    'margin-top': '10px',
+    'background-color': '#68339e',
+    border: 'solid',
+    'border-radius': '8px',
+    'padding-bottom': '50px',
+    'border-color': 'white',
     color: 'white',
   };
   stylesForButtonChangeTitle = {
-    width: '65px',
-    height: '60px',
+    width: '100%',
+    height: '80%',
+    'margin-bottom': '30px',
     'background-color': '#91415bff',
     color: 'white',
+    border: 'solid',
+    'border-radius': '8px',
+    'border-color': 'white',
   };
   readonly textDiscriprion = input<string>();
   readonly taskId = model.required<number>();
   readonly sharedId = model.required<number>();
   readonly textTask = model.required<string>();
+  readonly statusIsCompleted = input.required<boolean>();
   readonly textTaskChange: OutputEmitterRef<string> = output();
+  readonly statusTaskChange: OutputEmitterRef<boolean> = output();
   readonly tasksChange: OutputEmitterRef<number> = output();
-
   deleteTask(): void {
     this.tasksChange.emit(this.taskId());
   }
@@ -66,6 +78,9 @@ export class ToDoListItemComponent {
     if (this.newTitle === null || this.newTitle.trim() === '') return;
     this.titleIsChange.set(true);
     this.textTaskChange.emit(this.newTitle);
+  }
+  changeStatus(status: boolean) {
+    this.statusTaskChange.emit(status);
   }
   get tooltipStyles(): TooltipStyleConfig {
     return {
