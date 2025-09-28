@@ -1,14 +1,18 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DestroyRef,
   ElementRef,
   inject,
   InjectionToken,
+  OnChanges,
   OnDestroy,
   OnInit,
   Renderer2,
   signal,
+  SimpleChanges,
   ViewChild,
   viewChild,
 } from '@angular/core';
@@ -20,6 +24,7 @@ import { Subject } from 'rxjs';
   imports: [CommonModule],
   templateUrl: './to-do-list-toast-component.html',
   styleUrl: './to-do-list-toast-component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoListToastComponent implements AfterViewInit, OnDestroy {
   appColor: Array<string> = [
@@ -36,19 +41,15 @@ export class ToDoListToastComponent implements AfterViewInit, OnDestroy {
 
   toastService = inject(ToastService);
   renderer = inject(Renderer2);
-
-  // li?: HTMLElement;
-  // p?: HTMLElement;
+  changeDetection = inject(ChangeDetectorRef);
   private itemCounter = 0;
   private intervalId?: number;
 
   readonly toastes = signal(this.toastService.textArray);
-  //readonly nativeEl = viewChild('mylist');
   @ViewChild('mylist', { static: false }) nativeEl?: ElementRef;
   ngAfterViewInit() {
     this.showToast();
   }
-
   ngOnDestroy() {
     clearInterval(this.intervalId);
   }
@@ -57,12 +58,11 @@ export class ToDoListToastComponent implements AfterViewInit, OnDestroy {
     this.intervalId = setInterval(() => {
       this.ChangeDisplayItem();
     }, this.interavalForOutputToast);
-    for (let item of this.toastService.textArray) {
-      this.toastService.deleteToast(item.id);
-    }
   }
 
   ChangeDisplayItem() {
+    this.changeDetection.detectChanges();
+
     if (this.itemCounter >= this.toastes().length) return;
     console.log(this.nativeEl);
     const item = this.toastes()[this.itemCounter];
@@ -77,10 +77,8 @@ export class ToDoListToastComponent implements AfterViewInit, OnDestroy {
     this.renderer.appendChild(li, p);
     this.renderer.appendChild(this.nativeEl?.nativeElement, li);
 
-    setTimeout(() => {
-      this.renderer.removeChild(p, li);
-      this.renderer.removeChild(this.nativeEl?.nativeElement, li);
-    }, this.interavalForOutputToast);
+    this.renderer.removeChild(li, p);
+    this.renderer.removeChild(this.nativeEl?.nativeElement, li);
 
     this.itemCounter++;
   }
