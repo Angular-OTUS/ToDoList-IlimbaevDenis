@@ -1,0 +1,43 @@
+.toast-list {
+  width: 60%;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  list-style: none;
+}
+.toast-list__item {
+  color: black;
+  padding-bottom: 15px;
+  width: 40%;
+  max-height: 40px;
+  border: solid 4px;
+  border-radius: 3px;
+  animation: slide-in 0.5s ease-out forwards;
+  margin-bottom: 10px;
+}
+.toast-list__item p {
+  font-size: 18px;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 600;
+}
+@keyframes slide-in {
+  0% {
+    transform: translateX(-100%); /* В начале элемент слева */
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0); /* В конце элемент на месте */
+    opacity: 1;
+  }
+}
+@keyframes exit {
+  0% {
+    transform: translateX(0%); /* В начале элемент слева */
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-100%); /* В конце элемент на месте */
+    opacity: 1;
+  }
+}
