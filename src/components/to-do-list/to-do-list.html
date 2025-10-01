@@ -12,6 +12,7 @@
         (click)="selectId(task.id)"
         (tasksChange)="deleteTask($event)"
         (textTaskChange)="changeTitle($event)"
+        (dblclick)="activeChangeTitle()"
       />
       <!-- click тригерит перендеринг компонента  -->
     } @empty {
