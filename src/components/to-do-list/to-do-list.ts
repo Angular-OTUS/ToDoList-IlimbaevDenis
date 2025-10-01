@@ -41,9 +41,12 @@ import { ToastService } from '../../services/toast-service';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ToDoList implements OnInit {
+  
   listService = inject(GetTaskServices);
   toastService = inject(ToastService);
   article: string = '';
+  isActiveChangeTitle = false;
+  
   stylesForButton = {
     width: '200px',
     height: '100px',
@@ -51,6 +54,7 @@ export class ToDoList implements OnInit {
     color: 'white',
   };
   readonly description = model<string>();
+  readonly todoItems = viewChildren(ToDoListItemComponent);
   readonly selectedItemId = signal<number>(0);
   readonly isLoading = signal<boolean>(true);
   readonly tasks: WritableSignal<MyTask[]> = signal<MyTask[]>(this.listService.tasks);
@@ -62,7 +66,9 @@ export class ToDoList implements OnInit {
       this.isLoading.set(false);
     }, 500);
   }
-
+activeChangeTitle(): void{
+  todoItems // вообщем здесь найдешь нужный тебе элемент по id и изменишь его условие для возникновения change title 
+}
   addTask(): void {
     if (this.article === null || this.article?.trim() === '') {
       return;
