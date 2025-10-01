@@ -36,9 +36,12 @@ import { TooltipStyleConfig } from '../../directives/my-tooltip/types/tooltip-st
   styleUrl: './to-do-list-item-component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToDoListItemComponent {
+export class ToDoListItemComponent implements OnInit {
   newTitle = '';
-  titleIsChange = linkedSignal(() => this.sharedId() !== this.taskId());
+  readonly conditionForChangeTitle = signal<boolean>(false);
+  readonly conditionForChangeTitleComputed = computed(() => this.conditionForChangeTitle()); // after = tyue always true
+  readonly isStart = model.required<boolean>();
+  readonly titleIsChange = linkedSignal(() => this.sharedId() !== this.taskId());
 
   stylesForButton = {
     width: '100px',
@@ -58,7 +61,11 @@ export class ToDoListItemComponent {
   readonly textTask = model.required<string>();
   readonly textTaskChange: OutputEmitterRef<string> = output();
   readonly tasksChange: OutputEmitterRef<number> = output();
-
+  ngOnInit(): void {
+    setInterval(() => {
+      console.log(this.conditionForChangeTitle() + ' ' + this.textTask());
+    }, 5000);
+  }
   deleteTask(): void {
     this.tasksChange.emit(this.taskId());
   }
@@ -66,6 +73,10 @@ export class ToDoListItemComponent {
     if (this.newTitle === null || this.newTitle.trim() === '') return;
     this.titleIsChange.set(true);
     this.textTaskChange.emit(this.newTitle);
+    this.endChange();
+  }
+  endChange(): void {
+    this.conditionForChangeTitle.set(false);
   }
   get tooltipStyles(): TooltipStyleConfig {
     return {

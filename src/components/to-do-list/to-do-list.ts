@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   HostBinding,
@@ -7,6 +8,7 @@ import {
   model,
   OnInit,
   signal,
+  viewChildren,
   WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -41,12 +43,13 @@ import { ToastService } from '../../services/toast-service';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ToDoList implements OnInit {
-  
   listService = inject(GetTaskServices);
+  changeDetection = inject(ChangeDetectorRef);
   toastService = inject(ToastService);
   article: string = '';
   isActiveChangeTitle = false;
-  
+  isStart = true;
+
   stylesForButton = {
     width: '200px',
     height: '100px',
@@ -66,9 +69,9 @@ export class ToDoList implements OnInit {
       this.isLoading.set(false);
     }, 500);
   }
-activeChangeTitle(): void{
-  todoItems // вообщем здесь найдешь нужный тебе элемент по id и изменишь его условие для возникновения change title 
-}
+  activeChangeTitle(id: number): void {
+    this.todoItems()[this.selectedItemId()]?.conditionForChangeTitle.set(true);
+  }
   addTask(): void {
     if (this.article === null || this.article?.trim() === '') {
       return;
@@ -92,5 +95,6 @@ activeChangeTitle(): void{
   }
   selectId(id: number): void {
     this.selectedItemId.set(id);
+    this.isStart = false;
   }
 }

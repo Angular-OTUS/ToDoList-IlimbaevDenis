@@ -1,24 +1,23 @@
 <h2 class="header">Todo List</h2>
 <ul class="to-list">
   @if (isLoading()) {
-    <ngx-spinner color="#000000" type="ball-spin" />
-  } @else {
-    @for (task of tasks(); track task.id) {
-      <app-to-do-list-item-component
-        [sharedId]="selectedItemId()"
-        [taskId]="task.id"
-        [textDiscriprion]="task.description"
-        [textTask]="task.text"
-        (click)="selectId(task.id)"
-        (tasksChange)="deleteTask($event)"
-        (textTaskChange)="changeTitle($event)"
-        (dblclick)="activeChangeTitle()"
-      />
-      <!-- click тригерит перендеринг компонента  -->
-    } @empty {
-      <li style="color: black">elements not found</li>
-    }
-  }
+  <ngx-spinner color="#000000" type="ball-spin" />
+  } @else { @for (task of tasks(); track task.id) {
+  <app-to-do-list-item-component
+    [sharedId]="selectedItemId()"
+    [taskId]="task.id"
+    [textDiscriprion]="task.description"
+    [textTask]="task.text"
+    [isStart]="isStart"
+    (click)="selectId(task.id)"
+    (tasksChange)="deleteTask($event)"
+    (textTaskChange)="changeTitle($event)"
+    (dblclick)="activeChangeTitle(task.id)"
+  />
+  <!-- click тригерит перендеринг компонента  -->
+  } @empty {
+  <li style="color: black">elements not found</li>
+  } }
 </ul>
 <div class="container-for-adding-task">
   <div class="container-for-adding-task__inputs">
