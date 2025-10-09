@@ -12,11 +12,7 @@ export class FakeApiService {
   readonly config?;
   
   httpClient = inject(HttpClient);
-  // get
-  readonly fastGet = httpResource<Root>(() => 
-     this.apiUrl,
-  );
-  readonly value = computed(() => this.fastGet.value());
+ 
   private apiUrl = `http://localhost:5125/tasks`
   constructor() {
     this.config = {
@@ -33,42 +29,38 @@ export class FakeApiService {
         })).subscribe(func);
   }
   // post
-  addTask(task: Task): void {
-    const newdata = this.doSomeOperation((tasks) => {
-      tasks.push(task);
-    });
+  addTask(task: MyTask): void {
     this.httpClient.post<Root>(
       this.apiUrl,
-      newdata,
+      task
     );
   }
   //put
   updateTask(id: number, property: keyof Omit<MyTask, 'id'>, newValue: any): void {
-    const newdata = this.doSomeOperation((tasks) => {
-      tasks[id][property] = newValue;
-    });
-
-    this.httpClient.put<Root>(
+     this.getTasks((root) => {
+      if(!isTask(root)) {return;}
+      const task = root.tasks.find(x => x.id === id)!;
+      task[property] = newValue;
+      this.httpClient.put<Root>(
       this.apiUrl,
-      newdata,
+      task
+      );
+    })
+   
+  }
+  // delete
+  deleteTask(id: number): void{
+     this.httpClient.delete<Root>(
+      this.apiUrl + '/' + id,
     );
   }
-  private doSomeOperation(someAction: ActionWithTask): Root {
-    const data: Root = this.fastGet.value()!;
 
-    const tasks = data.tasks;
-
-    someAction(tasks);
-
-    data.tasks = tasks;
-
-    return data;
-  }
 }
-export type ActionWithTask = (val: Task[]) => void;
+export type ActionWithTask = (val:MyTask[]) => void;
 export type Root = {
-  tasks: Task[];
+  tasks: MyTask[];
 }
-
-export type Task = Pick<MyTask, 'title' | 'description' | 'status'>;
+export function isTask(data: Root | never[]): data is Root {
+    return (data as Root) !== null;
+  }
 export type TaskDelegate = (val: Root | never[]) => void;
