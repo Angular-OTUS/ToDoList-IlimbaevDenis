@@ -1,7 +1,4 @@
 import {
-  DomSanitizer
-} from "./chunk-EEM7SDWO.js";
-import {
   animate,
   sequence,
   state,
@@ -9,6 +6,9 @@ import {
   transition,
   trigger
 } from "./chunk-54IIU5EI.js";
+import {
+  DomSanitizer
+} from "./chunk-EEM7SDWO.js";
 import "./chunk-XEQWXZSR.js";
 import "./chunk-A6X6XTPA.js";
 import {

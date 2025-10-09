@@ -11,6 +11,7 @@ import {
   OnInit,
   signal,
   SimpleChanges,
+  viewChildren,
   WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +26,6 @@ import { EnterControl } from '../../directives/enter-control-directive/enter-con
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MyTask, TaskServices } from '../../services/get-tasks-services';
 import { ToastService } from '../../services/toast-service';
-import { ToDoListItemCheckboxComponent } from '../to-do-list-item-checkbox-component/to-do-list-item-checkbox-component';
 @Component({
   selector: 'app-to-do-list',
   imports: [
@@ -50,8 +50,9 @@ export class ToDoList implements OnInit {
   listService = inject(TaskServices);
   toastService = inject(ToastService);
   changeDetection = inject(ChangeDetectorRef);
-  article: string = '';
-
+  article = '';
+  isActiveChangeTitle = false;
+  isStart = true;
   stylesForButton = {
     width: '200px',
     height: '100px',
@@ -66,6 +67,7 @@ export class ToDoList implements OnInit {
   readonly selectedItemId = signal<number>(0);
   readonly isLoading = signal<boolean>(true);
   readonly tasks = signal<MyTask[] | null>(null);
+  readonly todoItems = viewChildren(ToDoListItemComponent);
   private spinner = inject(NgxSpinnerService);
   ngOnInit(): void {
     this.spinner.show();
@@ -82,7 +84,7 @@ export class ToDoList implements OnInit {
     if (this.article === null || this.article?.trim() === '') {
       return;
     }
-    if (!this.tasks()) return;
+    if (!this.tasks()) { return; }
     this.tasks.update((arr) =>
       this.listService.addNewEl(arr!, {
         id: this.tasks()!.length,
@@ -94,18 +96,18 @@ export class ToDoList implements OnInit {
     this.toastService.addToast(`Add task: ${this.article}`);
   }
   deleteTask(id: number): void {
-    if (!this.tasks()) return;
+    if (!this.tasks()) { return; }
     this.tasks.update((arr) => this.listService.delNewEl(arr!, id));
     this.toastService.addToast(`Delete task with id: ${id}`);
   }
-  changeTitle(title: string) {
-    if (!this.tasks()) return;
+  changeTitle(title: string): void {
+    if (!this.tasks()) { return; }
     this.tasks.update((arr) =>
       this.listService.updateElProp(arr!, this.selectedItemId(), 'title', title),
     );
     this.toastService.addToast(`Change title element id: ${this.selectedItemId()}`);
   }
-  changeStatus(status: boolean) {
+  changeStatus(status: boolean): void {
     this.tasks.update((arr) =>
       this.listService.updateElProp(
         arr!,
@@ -115,10 +117,14 @@ export class ToDoList implements OnInit {
       ),
     );
   }
+  activeChangeTitle(): void{
+    this.todoItems()[this.selectedItemId()]?.conditionForChangeTitle.set(true)
+  }
   selectId(id: number): void {
     this.selectedItemId.set(id);
+    this.isStart = false
   }
-  public rerender(): void {
+  rerender(): void {
     this.changeDetection.markForCheck();
   }
 }

@@ -1,50 +1,47 @@
-@if (!titleIsChange() && sharedId() == taskId()) {
-  @if (!statusIsCompleted()) {
-    <app-to-do-list-item-checkbox-component (statusTaskChange)="changeStatus($event)" />
-  }
-  <li class="to-list__item">
-    <div
-      appMyTooltip
-      class="to-list__item__text"
-      style="display: flex; width: 50%"
-      [myTooltipText]="textDiscriprion()"
-      [styles]="tooltipStyles"
-      [verticalOffset]="-28"
-    >
-      <div class="to-list__item__change-title">
-        <mat-form-field class="to-list__item__text__input">
-          <mat-label>Change your title</mat-label>
-          <input appEnterControl matInput [(ngModel)]="newTitle" />
-        </mat-form-field>
-        <app-to-do-button-component
-          myTitle="Change title"
-          [(styles)]="stylesForButtonChangeTitle"
-          (myClickChange)="changeText()"
-        />
-      </div>
-    </div>
 
-    <app-to-do-button-component
-      myTitle="Delete"
-      [(styles)]="stylesForButton"
-      (myClickChange)="deleteTask()"
-    />
-  </li>
-} @else {
-  <li class="to-list__item">
-    <span
-      appMyTooltip
-      class="to-list__item__text"
-      [myTooltipText]="textDiscriprion()"
-      [styles]="tooltipStyles"
-      [verticalOffset]="40"
-    >
-      <p>{{ textTask() }}</p>
-    </span>
-    <app-to-do-button-component
-      myTitle="Delete"
-      [(styles)]="stylesForButton"
-      (myClickChange)="deleteTask()"
-    />
-  </li>
+<li class="to-list__item">
+  @if(isStart()){
+  <ng-container [ngTemplateOutlet]="myTemplate"/>
+  } @else if (conditionForChangeTitleComputed() === true && !titleIsChange() && sharedId() ===
+  taskId()) {
+    @if(!statusIsCompleted()){
+      <app-to-do-list-item-checkbox-component (statusTaskChange)="changeStatus($event)"/>
 }
+  <div
+    appMyTooltip
+    class="to-list__item__text"
+    style="display: flex; width: 50%"
+    [myTooltipText]="textDiscriprion()"
+    [styles]="tooltipStyles"
+    [verticalOffset]="-28"
+  >
+    <mat-form-field class="to-list__item__text__input">
+      <mat-label>Change your title</mat-label>
+      <input appEnterControl matInput [(ngModel)]="newTitle" />
+    </mat-form-field>
+    <app-to-do-button-component
+      myTitle="Change title"
+      [(styles)]="stylesForButtonChangeTitle"
+      (myClickChange)="changeText()"
+    />
+  </div>
+  } @else {
+  <ng-container [ngTemplateOutlet]="myTemplate"/>
+  }
+  <app-to-do-button-component
+    myTitle="Delete task"
+    [(styles)]="stylesForButton"
+    (myClickChange)="deleteTask()"
+  />
+</li>
+<ng-template #myTemplate>
+  <span
+    appMyTooltip
+    class="to-list__item__text"
+    [myTooltipText]="textDiscriprion()"
+    [styles]="tooltipStyles"
+    [verticalOffset]="40"
+  >
+    <p>{{ textTask() }}</p>
+  </span>
+</ng-template>
