@@ -30,10 +30,10 @@ export class FakeApiService {
   }
   // post
   addTask(task: MyTask): void {
-    this.httpClient.post<Root>(
+    this.httpClient.post(
       this.apiUrl,
-      task
-    );
+      task,
+    ).subscribe(() => {console.log("Adding")})
   }
   //put
   updateTask(id: number, property: keyof Omit<MyTask, 'id'>, newValue: any): void {
@@ -43,16 +43,17 @@ export class FakeApiService {
       task[property] = newValue;
       this.httpClient.put<Root>(
       this.apiUrl,
-      task
-      );
+      JSON.stringify(task)
+      ).subscribe(() => {console.log("Updating")})
     })
    
   }
   // delete
   deleteTask(id: number): void{
-     this.httpClient.delete<Root>(
+     console.log( this.apiUrl + '/' + id);
+     this.httpClient.delete( 
       this.apiUrl + '/' + id,
-    );
+    ).subscribe(() => {console.log("Deleting")})
   }
 
 }

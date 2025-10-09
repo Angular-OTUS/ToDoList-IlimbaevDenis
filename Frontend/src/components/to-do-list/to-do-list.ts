@@ -3,16 +3,12 @@ import {
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  HostBinding,
   inject,
   input,
   model,
-  OnChanges,
   OnInit,
   signal,
-  SimpleChanges,
   viewChildren,
-  WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -78,8 +74,6 @@ export class ToDoList implements OnInit {
     this.listService.getTasks((list) => this.tasks.set(list) )
 
   }
-
-
   addTask(): void {
     if (this.article === null || this.article?.trim() === '') {
       return;
