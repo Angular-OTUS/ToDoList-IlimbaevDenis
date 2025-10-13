@@ -1,0 +1,37 @@
+:host {
+  display: flex;
+  /* background-color: aqua; */
+}
+.to-list__item {
+  background-color: white;
+  -webkit-box-shadow: 3px 13px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 3px 13px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 3px 13px 8px 0px rgba(34, 60, 80, 0.2);
+  display: flex;
+  width: 100%;
+  border: solid;
+  border-color: white;
+  border-radius: 5px;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-right: 15px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+.to-list__item:active {
+  background-color: rgb(108, 127, 135);
+}
+.to-list__item__change-title {
+  display: flex;
+}
+.to-list__item__text {
+  width: 30%;
+  overflow-wrap: break-word;
+}
+.to-list__item__text p {
+  text-align: center;
+  color: black;
+  font-weight: 600;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}

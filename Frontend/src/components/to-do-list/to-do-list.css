@@ -1,0 +1,67 @@
+:host {
+  display: block;
+  padding: 30px;
+  padding-bottom: 40px;
+  margin: auto;
+  width: 30%;
+  overflow: hidden;
+}
+.header {
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Roboto Serif', serif;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #68339e;
+  margin-bottom: 60px;
+}
+.to-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+}
+.to-list-item-notfound {
+  color: black;
+  font-size: 24px;
+  font-family: 'Roboto Serif', serif;
+  font-weight: bold;
+}
+.container-for-adding-task {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  max-height: 100px;
+}
+.container-for-adding-task__inputs {
+  display: flex;
+  width: 70%;
+  padding: 3px;
+  height: 300px;
+  flex-direction: column;
+}
+.container-for-adding-task__inputs__textarea,
+.container-for-adding-task__inputs__input {
+  resize: both;
+  font-size: 16px;
+  overflow: auto;
+  width: 90%;
+  margin-right: 5px;
+}
+.container-for-adding-task__button {
+  background-color: rgba(68, 74, 80, 0.671);
+  border: 2px;
+  max-height: 50px;
+  padding: 5px;
+  padding-top: 0px;
+}
+.container-for-adding-task__button:active {
+  opacity: 0.5;
+}
+.container-for-adding-task__button p {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  white-space: nowrap;
+}

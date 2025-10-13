@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "+HXOo6nIcCZroPy869pk4dhUH8jv7/rEFUUG8helUj8=",
+  "Source": "LocalAPI",
+  "BasePath": "_content/LocalAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
