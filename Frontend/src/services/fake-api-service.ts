@@ -2,7 +2,7 @@ import { HttpClient, httpResource } from '@angular/common/http';
 import { computed, inject, Injectable } from '@angular/core';
 import { catchError, Observable, of, Subscription, throwError, timeout } from 'rxjs';
 
-import { MyTask } from './get-tasks-services';
+import { MyTask } from './tasks-services';
 import { environment } from '../environments/environment.development';
 
 @Injectable({
@@ -30,6 +30,8 @@ export class FakeApiService {
   }
   // post
   addTask(task: MyTask): void {
+    console.log("now task: ")
+    console.log(task)
     this.httpClient.post(
       this.apiUrl,
       task,

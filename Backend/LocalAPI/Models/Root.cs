@@ -6,7 +6,7 @@ namespace LocalApi
     class Root
     {
         [JsonProperty(PropertyName = "tasks")]
-        public MyTask[]? Tasks;
+        public MyTask[] Tasks = null!;
     }
 }
 

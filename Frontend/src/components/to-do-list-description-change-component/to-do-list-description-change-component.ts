@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ToDoButtonComponent } from '../to-do-button-component/to-do-button-component';
-import { MyTask } from '../../services/get-tasks-services';
+import { MyTask } from '../../services/tasks-services';
 @Component({
   selector: 'app-to-do-list-description-change-component',
   imports: [MatInputModule, MatFormFieldModule, CommonModule, FormsModule, ToDoButtonComponent],

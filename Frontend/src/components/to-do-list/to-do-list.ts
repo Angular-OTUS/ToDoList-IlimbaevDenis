@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
 import { ToDoButtonComponent } from '../to-do-button-component/to-do-button-component';
 import { EnterControl } from '../../directives/enter-control-directive/enter-control';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { MyTask, TaskServices } from '../../services/get-tasks-services';
+import { MyTask, TaskServices } from '../../services/tasks-services';
 import { ToastService } from '../../services/toast-service';
 @Component({
   selector: 'app-to-do-list',

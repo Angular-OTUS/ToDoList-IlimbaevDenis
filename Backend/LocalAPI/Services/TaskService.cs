@@ -1,23 +1,12 @@
 class TaskService
 {
     public List<MyTask> List { get; set; } = [
-       new MyTask(){Tilte = "Fix bags", Description = "Tomorrow", },
-       new MyTask(){Tilte = "Complete previous", Description = "Now", },
-       new MyTask(){Tilte = "Create some angular app", Description = "Yesterday" }
+       new MyTask(){Id = 0,Title = "Fix bags", Description = "Tomorrow", Status = Status.Progress.ToString()},
+       new MyTask(){Id = 1,Title = "Complete previous", Description = "Now", Status = Status.Progress.ToString() },
+       new MyTask(){Id = 2,Title = "Create some angular app", Description = "Yesterday", Status = Status.Progress.ToString() }
     ];
-    public List<MyTask> GetTasks()
-    {
-        return List.Select(item => new MyTask()
-        {
-            Tilte = item.Tilte,
-            Description = item.Description,
-            Status = Status.Progress.ToString()
-        }).ToList();
-    }
-    public MyTask GetTaskById(int id)
-    {
-        return List[id];
-    }
+    public MyTask? GetTaskById(int id) =>  List.Where(x => x.Id == id).SingleOrDefault();
     public void AddTask(MyTask task) => List.Add(task);
+    public void DeleteTask(int id) => List.RemoveAll(x => x.Id == id);
 
 }
