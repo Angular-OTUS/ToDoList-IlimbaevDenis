@@ -35,7 +35,7 @@ from '../to-do-list-item-checkbox-component/to-do-list-item-checkbox-component';
   styleUrl: './to-do-list-item-component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToDoListItemComponent implements OnInit {
+export class ToDoListItemComponent  {
   newTitle = '';
   stylesForButton = {
     width: '100px',
@@ -58,29 +58,24 @@ export class ToDoListItemComponent implements OnInit {
     'border-radius': '8px',
     'border-color': 'white',
   };
-  readonly conditionForChangeTitle = signal<boolean>(false);
-  readonly titleIsChange = linkedSignal(() => this.sharedId() !== this.taskId());
-  readonly conditionForChangeTitleComputed = computed(() => this.conditionForChangeTitle()); // after = tyue always true
+  readonly conditionForChangeTitle = model<boolean>(false);
   readonly isStart = model.required<boolean>();
   readonly textDiscriprion = input<string>();
   readonly taskId = model.required<number>();
   readonly sharedId = model.required<number>();
-  readonly textTask = model.required<string>();
+  readonly textTask = model<string>();
   readonly statusIsCompleted = input.required<boolean>();
+  readonly needTooltip = input<boolean>(true);
+  readonly visibleChanger = input<boolean>(true);
   readonly textTaskChange: OutputEmitterRef<string> = output();
   readonly statusTaskChange: OutputEmitterRef<boolean> = output();
   readonly tasksChange: OutputEmitterRef<number> = output();
-  ngOnInit(): void {
-    setInterval(() => {
-      console.log(this.conditionForChangeTitle() + ' ' + this.textTask());
-    }, 5000);
-  }
+
   deleteTask(): void {
     this.tasksChange.emit(this.taskId());
   }
   changeText(): void {
     if (this.newTitle === null || this.newTitle.trim() === '') { return; }
-    this.titleIsChange.set(true);
     this.textTaskChange.emit(this.newTitle);
     this.endChange()
   }

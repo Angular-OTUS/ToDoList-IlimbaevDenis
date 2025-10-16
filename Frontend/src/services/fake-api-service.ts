@@ -1,7 +1,6 @@
-import { HttpClient, httpResource } from '@angular/common/http';
-import { computed, inject, Injectable } from '@angular/core';
-import { catchError, Observable, of, Subscription, throwError, timeout } from 'rxjs';
-
+import { HttpClient } from '@angular/common/http';
+import {  inject, Injectable } from '@angular/core';
+import { catchError,  of, Subscription } from 'rxjs';
 import { MyTask } from './tasks-services';
 import { environment } from '../environments/environment.development';
 
@@ -41,7 +40,9 @@ export class FakeApiService {
   updateTask(id: number, property: keyof Omit<MyTask, 'id'>, newValue: any): void {
      this.getTasks((root) => {
       if(!isTask(root)) {return;}
-      const task = root.tasks.find(x => x.id === id)!;
+      // eslint-disable-next-line eqeqeq
+      const task = root.tasks.find(x => x.id == id)!;
+      console.log("Task is null: ", task === undefined)
       task[property] = newValue;
       this.httpClient.put<Root>(
       this.apiUrl,

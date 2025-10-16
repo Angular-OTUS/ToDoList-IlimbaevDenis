@@ -1,0 +1,23 @@
+<div class="container-for-item">
+<app-to-do-list-item-component
+    [conditionForChangeTitle] = 'isWantChangeTitle'
+    [isStart]="isStart"
+    [needTooltip]="false"
+    [sharedId]="id()"
+    [statusIsCompleted]="status() === 'Completed'"
+    [taskId]="id()"
+    [textDiscriprion]="description()"
+    [textTask]="title()"
+    [visibleChanger]="true"
+    (dblclick)="activeChangeTitle()"
+    (tasksChange)="deleteTask($event)"
+    (textTaskChange)="changeTitle($event)"
+  />
+</div>
+ <div class="container-for-des">
+  <app-to-do-list-description-change-component
+  [task]="task()"
+  (descriptionChange)="updateDescription($event)"
+/>
+ </div>
+

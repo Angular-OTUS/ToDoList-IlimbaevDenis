@@ -1,20 +1,29 @@
+<div class="radio-group">
+  <mat-radio-group
+    aria-label="Filter tasks"
+    [(ngModel)]="filterOption"
+    (change)="clickOnRadioButton()"
+  >
+    <mat-radio-button value="Progress">Progress</mat-radio-button>
+    <mat-radio-button value="Completed">Completed</mat-radio-button>
+  </mat-radio-group>
+</div>
 <h2 class="header">Todo List</h2>
 <ul class="to-list">
   @if (isLoading()) {
   <ngx-spinner color="#000000" type="ball-spin" />
-  } @else { @for (task of tasks(); track task.id) {
+  } @else { 
+    @for (task of tasks(); track task) {
     @if(task.status === filter()){
   <app-to-do-list-item-component
     [isStart]="isStart"
-    [sharedId]="selectedItemId()"
+    [sharedId]="task.id"
     [statusIsCompleted]="task.status === 'Completed'"
     [taskId]="task.id"
     [textDiscriprion]="task.description"
     [textTask]="task.title"
-    (click)="selectId(task.id)"
-    (dblclick)="activeChangeTitle()"
-    (tasksChange)="deleteTask($event)"
-    (textTaskChange)="changeTitle($event)"
+    [visibleChanger]="false"
+    (click)="changeToDoListItemOnPreview(task.id)"
   />
     }
   <!-- click тригерит перендеринг компонента  -->

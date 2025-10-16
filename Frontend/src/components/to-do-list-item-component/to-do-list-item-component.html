@@ -2,11 +2,10 @@
 <li class="to-list__item">
   @if(isStart()){
   <ng-container [ngTemplateOutlet]="myTemplate"/>
-  } @else if (conditionForChangeTitleComputed() === true && !titleIsChange() && sharedId() ===
-  taskId()) {
-    @if(!statusIsCompleted()){
-      <app-to-do-list-item-checkbox-component (statusTaskChange)="changeStatus($event)"/>
-}
+  } 
+  @else if (conditionForChangeTitle() === true) {
+@if(!statusIsCompleted() && visibleChanger()){<app-to-do-list-item-checkbox-component (statusTaskChange)="changeStatus($event)"/>}
+ @if(needTooltip()){
   <div
     appMyTooltip
     class="to-list__item__text"
@@ -15,6 +14,7 @@
     [styles]="tooltipStyles"
     [verticalOffset]="-28"
   >
+  @if(visibleChanger()){
     <mat-form-field class="to-list__item__text__input">
       <mat-label>Change your title</mat-label>
       <input appEnterControl matInput [(ngModel)]="newTitle" />
@@ -24,18 +24,43 @@
       [(styles)]="stylesForButtonChangeTitle"
       (myClickChange)="changeText()"
     />
+  }
   </div>
-  } @else {
+ }
+ @else {
+  <div
+    class="to-list__item__text"
+    style="display: flex; width: 50%"
+  >
+  @if(visibleChanger()){
+    <mat-form-field class="to-list__item__text__input">
+      <mat-label>Change your title</mat-label>
+      <input appEnterControl matInput [(ngModel)]="newTitle" />
+    </mat-form-field>
+    <app-to-do-button-component
+      myTitle="Change title"
+      [(styles)]="stylesForButtonChangeTitle"
+      (myClickChange)="changeText()"
+    />
+  }
+  </div>
+ }
+ }
+  @else {
   <ng-container [ngTemplateOutlet]="myTemplate"/>
   }
-  <app-to-do-button-component
+  @if(visibleChanger()){
+    <app-to-do-button-component
     myTitle="Delete task"
     [(styles)]="stylesForButton"
     (myClickChange)="deleteTask()"
   />
+  }
+  
 </li>
 <ng-template #myTemplate>
-  <span
+  @if(needTooltip()){
+     <span
     appMyTooltip
     class="to-list__item__text"
     [myTooltipText]="textDiscriprion()"
@@ -44,4 +69,13 @@
   >
     <p>{{ textTask() }}</p>
   </span>
+  }
+  @else {
+     <span
+    class="to-list__item__text"
+  >
+    <p>{{ textTask() }}</p>
+  </span>
+  }
+ 
 </ng-template>

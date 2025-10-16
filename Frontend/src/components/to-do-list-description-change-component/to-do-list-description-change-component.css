@@ -6,13 +6,10 @@
   -webkit-box-shadow: 3px 13px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 3px 13px 8px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 3px 13px 8px 0px rgba(34, 60, 80, 0.2);
-  max-width: 20%;
+  max-width: 100%;
   max-height: 500px;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 14%;
-  right: 20%;
   padding-bottom: 0px;
 }
 .container textarea {
