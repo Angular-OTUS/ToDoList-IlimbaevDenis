@@ -33,6 +33,7 @@ export class ToDoListDescriptionChangeComponent {
     'border-radius': '8px',
     'border-color': 'white',
   };
+  
   innerDescription? = '';
 
   readonly task = model<MyTask | null>();

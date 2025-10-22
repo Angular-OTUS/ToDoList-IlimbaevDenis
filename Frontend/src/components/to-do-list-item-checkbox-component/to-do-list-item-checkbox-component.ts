@@ -9,8 +9,10 @@ import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 })
 export class ToDoListItemCheckboxComponent {
   checkTask = false;
+
   readonly statusTaskChange = output<boolean>();
-  changeStatus() {
+
+  changeStatus(): void {
     this.checkTask = !this.checkTask;
     this.statusTaskChange.emit(this.checkTask);
   }

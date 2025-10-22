@@ -1,12 +1,10 @@
 import {
   Directive,
-  effect,
   ElementRef,
   HostListener,
   inject,
   Input,
   input,
-  model,
   OnChanges,
   OnInit,
   Renderer2,
@@ -18,16 +16,25 @@ import { TooltipStyleConfig } from './types/tooltip-style-config';
 })
 export class MyTooltip implements OnInit, OnChanges {
   renderer = inject(Renderer2);
+  
   host = inject(ElementRef);
+
   hasEffectRun: boolean = false;
+
   tooltip: HTMLDivElement = this.renderer.createElement('div');
+
   wrapper: HTMLDivElement = this.renderer.createElement('div');
+
   content: HTMLElement = this.renderer.createElement('p');
+
   @Input() myTooltipText?: string = '';
+
   readonly styles = input<TooltipStyleConfig>();
+
   readonly verticalOffset = input<number>();
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['myTooltipText'] && changes['myTooltipText'].isFirstChange()) return;
+    if (changes['myTooltipText'] && changes['myTooltipText'].isFirstChange()) { return; }
     if (
       changes['myTooltipText'] &&
       changes['myTooltipText'].currentValue !== changes['myTooltipText'].previousValue

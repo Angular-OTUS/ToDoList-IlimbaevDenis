@@ -59,16 +59,27 @@ export class ToDoListItemComponent  {
     'border-color': 'white',
   };
   readonly conditionForChangeTitle = model<boolean>(false);
+
   readonly isStart = model.required<boolean>();
+
   readonly textDiscriprion = input<string>();
+
   readonly taskId = model.required<number>();
+
   readonly sharedId = model.required<number>();
+
   readonly textTask = model<string>();
+
   readonly statusIsCompleted = input.required<boolean>();
+
   readonly needTooltip = input<boolean>(true);
+
   readonly visibleChanger = input<boolean>(true);
+
   readonly textTaskChange: OutputEmitterRef<string> = output();
+
   readonly statusTaskChange: OutputEmitterRef<boolean> = output();
+  
   readonly tasksChange: OutputEmitterRef<number> = output();
 
   deleteTask(): void {

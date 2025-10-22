@@ -48,15 +48,25 @@ import { MatRadioModule } from '@angular/material/radio';
 })
 export class ToDoList implements OnInit {
   listService = inject(TaskServices);
+
   toastService = inject(ToastService);
+
   changeDetection = inject(ChangeDetectorRef);
+  
   spinner = inject(NgxSpinnerService);
-  router = inject(Router)
-  route = inject(ActivatedRoute)
+
+  router = inject(Router);
+
+  route = inject(ActivatedRoute);
+
   article = '';
+
   isActiveChangeTitle = false;
+
   filterOption = "Progress";
+
   isStart = false;
+
   stylesForButton = {
     width: '200px',
     height: '100px',
@@ -67,10 +77,15 @@ export class ToDoList implements OnInit {
     color: 'white',
   };
   readonly description = model<string>();
+
   readonly filter = signal<string>('Progress');
+
   readonly selectedItemId = signal<number>(0);
+
   readonly isLoading = signal<boolean>(true);
+
   readonly tasks = signal<MyTask[] | null>(null);
+  
   ngOnInit(): void {
     this.spinner.show();
     setTimeout(() => {
@@ -99,12 +114,6 @@ export class ToDoList implements OnInit {
   }
   changeToDoListItemOnPreview(id: number): void {
 
-    console.log(this.tasks());
-
-    console.log("Now id: " + id)
-
-    console.log( (this.tasks()![id] as MyTask))
-
     // eslint-disable-next-line eqeqeq
     console.log((this.tasks()?.find(x => x.id == id) as MyTask));
 
@@ -112,15 +121,10 @@ export class ToDoList implements OnInit {
 
 
   }
-  rerender(): void {
-    this.changeDetection.markForCheck();
-  }
   clickOnRadioButton(): void {
 
     console.log(this.filterOption)
 
     this.filter.set(this.filterOption);
-
-    this.rerender();
   }
 }
