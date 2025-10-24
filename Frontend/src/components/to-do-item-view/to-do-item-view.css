@@ -1,0 +1,17 @@
+:host{
+  padding-top: 10%;
+  padding-right: 20%;
+  padding-left: 20%;
+  display: flex;
+  justify-content:  space-between;
+  align-items: center;
+  margin: auto;
+  gap: 30px;
+}
+.container-for-item{
+  width: 50%;
+  padding: 200px;
+}
+.container-for-des{
+  width: 20%;
+}

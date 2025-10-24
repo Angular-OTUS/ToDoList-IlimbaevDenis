@@ -4,6 +4,7 @@ import {
   computed,
   Input,
   input,
+  model,
   OnChanges,
   output,
   SimpleChanges,
@@ -32,13 +33,11 @@ export class ToDoListDescriptionChangeComponent {
     'border-radius': '8px',
     'border-color': 'white',
   };
+  
   innerDescription? = '';
-  @Input() list: MyTask[] | null | undefined = [];
-  readonly sharedId = input<number>();
 
-  readonly description = computed<string | undefined>(
-    () => this.list?.find((v) => v.id === this.sharedId()!)?.description,
-  );
+  readonly task = model<MyTask | null>();
+
   readonly descriptionChange = output<string>();
 
   onChange(): void {

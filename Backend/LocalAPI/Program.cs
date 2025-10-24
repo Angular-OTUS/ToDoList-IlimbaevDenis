@@ -27,7 +27,7 @@ app.MapGet("/tasks",  () =>
 {
     var logger = app.Services.GetService<ILogger>()!;
 
-    logger.LogInformation("Get request");
+    logger.LogInformation("Get request: " + DateTime.Now);
 
     var taskService = app.Services.GetService<TaskService>();
 
@@ -44,7 +44,7 @@ app.MapPost("/tasks", async (HttpContext httpContext) =>
     var taskService = app.Services.GetService<TaskService>();
     var logger = app.Services.GetService<ILogger>()!;
 
-    logger.LogInformation("Post request");
+    logger.LogInformation("Post request: " + DateTime.Now);
 
     var task = await ApiHelper.GetTaskFromRequest(httpContext);
 
@@ -59,7 +59,7 @@ app.MapPut("/tasks" , async (HttpContext httpContext) =>
     var taskService = app.Services.GetService<TaskService>();
     var logger = app.Services.GetService<ILogger>()!;
 
-    logger.LogInformation("Put request");
+    logger.LogInformation("Put request: " + DateTime.Now);
    
     var task = await ApiHelper.GetTaskFromRequest(httpContext);
 
@@ -74,9 +74,7 @@ app.MapPut("/tasks" , async (HttpContext httpContext) =>
         var propWithReq = task.GetType().GetFields().Where(x => x.Name == prop.Name).SingleOrDefault();
 
         prop.SetValue(currentTask, propWithReq!.GetValue(task));
-
     }
-
     return Results.Ok()
 ;
 });
@@ -85,7 +83,7 @@ app.MapDelete("/tasks/{id:int}", (int id) =>
     var taskService = app.Services.GetService<TaskService>()!;
     var logger = app.Services.GetService<ILogger>()!;
 
-    logger.LogInformation("Delete request");
+    logger.LogInformation("Delete request: " + DateTime.Now);
 
     taskService.DeleteTask(id);
 

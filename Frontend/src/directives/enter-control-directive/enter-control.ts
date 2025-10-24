@@ -5,7 +5,9 @@ import {ToDoList} from "../../components/to-do-list/to-do-list"
 })
 export class EnterControl {
   parentEl = inject(ToDoList);
+  
   textarea = inject(ElementRef);
+
   @HostListener("window:keydown.enter") OnKeyDownEnter(): void {
     this.parentEl.addTask();
     this.parentEl.article = "";

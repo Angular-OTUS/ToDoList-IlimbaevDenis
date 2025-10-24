@@ -1,6 +1,5 @@
 :host {
   display: flex;
-  /* background-color: aqua; */
 }
 .to-list__item {
   background-color: white;
@@ -27,6 +26,7 @@
 .to-list__item__text {
   width: 30%;
   overflow-wrap: break-word;
+  text-align: center;
 }
 .to-list__item__text p {
   text-align: center;

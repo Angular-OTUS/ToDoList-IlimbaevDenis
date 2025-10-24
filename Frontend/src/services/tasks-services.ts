@@ -1,20 +1,36 @@
-import { ChangeDetectorRef, inject, Injectable } from '@angular/core';
-import { FakeApiService, isTask, Root } from './fake-api-service';
+
+import {  inject, Injectable } from '@angular/core';
+import { FakeApiService, isTask } from './fake-api-service';
 import { of, Subscription } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class TaskServices {
   tasksAPI = inject(FakeApiService);
+  addNewElId(newValue: MyTask): void{
+    this.tasksAPI.addTask(newValue);
+  }
   addNewEl(arr: MyTask[], newValue: MyTask): MyTask[] {
     arr.push(newValue);
-    this.tasksAPI.addTask(newValue);
+    this.addNewElId(newValue);
     return arr;
   }
-  delNewEl(arr: MyTask[], id: number): MyTask[] {
-    arr.splice(id, 1);
+  delNewElId(id: number): void{
     this.tasksAPI.deleteTask(id);
+  }
+  delNewEl(arr: MyTask[], id: number): MyTask[] {
+    // eslint-disable-next-line eqeqeq
+    const index = arr.indexOf(arr.find(x => x.id == id)!)
+    console.log('index was: '+ index)
+    arr.splice( index, 1);
+    this.delNewElId(id)
     return arr;
+  }
+  updateElPropId<K extends keyof Omit<MyTask, 'id'>>(
+    id: number,
+    propertyForChange: K,
+    newValue: any,): void{
+      this.tasksAPI.updateTask(id, propertyForChange, newValue)
   }
   updateElProp<K extends keyof Omit<MyTask, 'id'>>(
     arr: MyTask[],
@@ -22,28 +38,25 @@ export class TaskServices {
     propertyForChange: K,
     newValue: any,
   ): MyTask[] {
-    const obj = arr[id];
-    obj[propertyForChange] = newValue;
-    this.tasksAPI.updateTask(id, propertyForChange, newValue)
+    // eslint-disable-next-line eqeqeq
+    const obj = arr.find(x => x.id == id);
+    obj![propertyForChange] = newValue;
+    this.updateElPropId(id, propertyForChange, newValue)
     return arr;
   }
+  getTask(id: number, delegate: (val: MyTask) => void): void{
+     this.getTasks((list) => {
+       // eslint-disable-next-line eqeqeq
+       const task = list.find(x => x.id == id);
+       delegate(task!);
+     });
+  }
   getTasks(delegate: (val: MyTask[]) => void): Subscription  {
-
     return this.tasksAPI.getTasks((root) => {
-       const list: MyTask[] = [];
         if(isTask(root)){
           console.log(root);
-           // eslint-disable-next-line for-direction
-           for (let counter = 0; counter < root.tasks.length; counter++) {
-        list.push({
-          id: counter,
-          title:  root.tasks[counter].title,
-          status:  root.tasks[counter].status,
-          description: root.tasks[counter].description,
-        });
-      }
-      delegate(list);
-      return of(list);
+      delegate(root.tasks);
+      return of(root.tasks);
         }
         return of([]);
        

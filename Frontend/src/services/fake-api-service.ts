@@ -1,25 +1,17 @@
-import { HttpClient, httpResource } from '@angular/common/http';
-import { computed, inject, Injectable } from '@angular/core';
-import { catchError, Observable, of, Subscription, throwError, timeout } from 'rxjs';
-
+import { HttpClient } from '@angular/common/http';
+import {  inject, Injectable } from '@angular/core';
+import { catchError,  of, Subscription } from 'rxjs';
 import { MyTask } from './tasks-services';
-import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FakeApiService {
-  readonly config?;
   
   httpClient = inject(HttpClient);
  
   private apiUrl = `http://localhost:5125/tasks`
-  constructor() {
-    this.config = {
-      token: environment.token,
-      basket: environment.basket,
-    };
-  }
+  
   
   getTasks(func: TaskDelegate): Subscription{
     return this.httpClient.get<Root>(this.apiUrl).pipe(
@@ -41,7 +33,8 @@ export class FakeApiService {
   updateTask(id: number, property: keyof Omit<MyTask, 'id'>, newValue: any): void {
      this.getTasks((root) => {
       if(!isTask(root)) {return;}
-      const task = root.tasks.find(x => x.id === id)!;
+      // eslint-disable-next-line eqeqeq
+      const task = root.tasks.find(x => x.id == id)!;
       task[property] = newValue;
       this.httpClient.put<Root>(
       this.apiUrl,

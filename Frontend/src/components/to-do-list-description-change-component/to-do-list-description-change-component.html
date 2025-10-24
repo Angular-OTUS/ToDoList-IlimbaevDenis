@@ -1,6 +1,6 @@
 <div class="container">
   <mat-form-field>
-    <mat-label> {{ description() }}</mat-label>
+    <mat-label> {{ task()?.description }}</mat-label>
     <textarea appEnterControl matInput [(ngModel)]="innerDescription"></textarea>
   </mat-form-field>
   <app-to-do-button-component
