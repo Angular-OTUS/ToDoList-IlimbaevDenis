@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/components/to-do-button-component/to-do-button-component.css"],
+  "sourcesContent": ["button:hover {\r\n  opacity: 0.5;\r\n}\r\nbutton p {\r\n  font-family: 'Roboto Serif', serif;\r\n  font-size: 16px;\r\n  font-weight: 600;\r\n}\r\n"],
+  "mappings": ";AAAA,MAAM;AACJ,WAAS;AACX;AACA,OAAO;AACL,eAAa,cAAc,EAAE;AAC7B,aAAW;AACX,eAAa;AACf;",
+  "names": []
+}
