@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, linkedSignal, OnChanges, OnInit, signal, viewChildren,
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, viewChild, viewChildren,
  } from '@angular/core';
 import { ToDoListDescriptionChangeComponent } 
 from "../to-do-list-description-change-component/to-do-list-description-change-component";
@@ -6,9 +6,10 @@ import { ToDoListItemComponent } from "../to-do-list-item-component/to-do-list-i
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyTask, TaskServices } from '../../services/tasks-services';
 import { ToastService } from '../../services/toast-service';
+import { ToDoListItemInfo } from "../to-do-list-item-info/to-do-list-item-info";
 @Component({
   selector: 'app-to-do-item-view',
-  imports: [ToDoListDescriptionChangeComponent, ToDoListItemComponent],
+  imports: [ToDoListDescriptionChangeComponent, ToDoListItemComponent, ToDoListItemInfo],
   templateUrl: './to-do-item-view.html',
   providers: [Router],
   styleUrl: './to-do-item-view.css',
@@ -22,11 +23,15 @@ export class ToDoItemView implements OnInit {
 
   route = inject(ActivatedRoute)
 
+  
+
   listService = inject(TaskServices);
 
   toastService = inject(ToastService);
 
   router = inject(Router);
+
+  readonly infoComponent = viewChild(ToDoListItemInfo);
 
   readonly id = signal<number>(0);
 
@@ -69,20 +74,29 @@ export class ToDoItemView implements OnInit {
         return t;
       }
       taskNew.title = title;
+
       this.listService.updateElPropId(this.id(), 'title', title);
       return taskNew;
     }
     );
+    this.infoComponent()?.rerender();
     this.toastService.addToast(`Change title element id: ${this.id()}`);
   }
   updateDescription(descriptionArg: string): void {
    this.task.update((t) =>
     {  
+      const taskNew: MyTask  = {
+        description: '',
+        status: t!.status,
+        id: t!.id,
+        title: t!.title
+      }
+      if(!descriptionArg) { return t; }
+      taskNew.description = descriptionArg;
       this.listService.updateElPropId(this.id(), 'description', descriptionArg);
-      if(!t) { return t; } 
-      t.description = descriptionArg;
-      return t;
-    });
+      return taskNew;
+    })
+    this.infoComponent()?.rerender();
     this.toastService.addToast(`Change desc element id: ${this.id()}`);
   }
   ngOnInit(): void 

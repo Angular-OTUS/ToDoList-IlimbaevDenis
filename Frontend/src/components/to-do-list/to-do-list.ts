@@ -5,7 +5,6 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
   model,
-  NgZone,
   OnInit,
   signal,
 } from '@angular/core';
@@ -22,6 +21,7 @@ import { MyTask, TaskServices } from '../../services/tasks-services';
 import { ToastService } from '../../services/toast-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatRadioModule } from '@angular/material/radio';
+import { ROUTES_CONFIG } from '../../app/app.routes';
 @Component({
   selector: 'app-to-do-list',
   imports: [
@@ -117,7 +117,7 @@ export class ToDoList implements OnInit {
     // eslint-disable-next-line eqeqeq
     console.log((this.tasks()?.find(x => x.id == id) as MyTask));
 
-    this.router.navigate(['tasks/', id]);
+    this.router.navigate([ROUTES_CONFIG.BACKLOG, id]);
 
 
   }
