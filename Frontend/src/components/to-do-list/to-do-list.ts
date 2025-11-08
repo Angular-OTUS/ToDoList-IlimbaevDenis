@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  computed,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
   model,
@@ -22,6 +23,7 @@ import { ToastService } from '../../services/toast-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatRadioModule } from '@angular/material/radio';
 import { ROUTES_CONFIG } from '../../app/app.routes';
+import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-to-do-list',
   imports: [
@@ -84,42 +86,36 @@ export class ToDoList implements OnInit {
 
   readonly isLoading = signal<boolean>(true);
 
-  readonly tasks = signal<MyTask[] | null>(null);
+  readonly tasksSignal = toSignal(this.listService.getTasks())
   
+  readonly tasks = computed(() => this.tasksSignal());
   ngOnInit(): void {
     this.spinner.show();
     setTimeout(() => {
       this.spinner.hide();
       this.isLoading.set(false);
     }, 500);
-    this.listService.getTasks((list) => {
-      console.log(list);
-      this.tasks.set(list)
-    } )
   }
   addTask(): void {
     if (this.article === null || this.article?.trim() === '') {
       return;
     }
     if (!this.tasks()) { return; }
-    this.tasks.update((arr) =>
-      this.listService.addNewEl(arr!, {
-        id: this.tasks()!.length,
-        title: this.article,
-        description: this.description(),
-        status: 'Progress',
-      }),
+    const arr = this.tasks()!;
+    this.listService.addNewEl(arr, {
+      id: arr.length + 1,
+      title: this.article,
+      description: this.description(),
+      status: 'Progress',
+    }
     );
-    this.toastService.addToast(`Add task: ${this.article}`);
+    this.toastService.addToast(`Add task: ${this.article} `);
   }
   changeToDoListItemOnPreview(id: number): void {
-
     // eslint-disable-next-line eqeqeq
     console.log((this.tasks()?.find(x => x.id == id) as MyTask));
 
     this.router.navigate([ROUTES_CONFIG.BACKLOG, id]);
-
-
   }
   clickOnRadioButton(): void {
 

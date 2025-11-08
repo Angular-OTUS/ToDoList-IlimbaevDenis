@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, viewChild, viewChildren,
+import { ChangeDetectionStrategy, Component, computed, inject, linkedSignal, OnInit, signal, viewChild, viewChildren,
  } from '@angular/core';
 import { ToDoListDescriptionChangeComponent } 
 from "../to-do-list-description-change-component/to-do-list-description-change-component";
@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MyTask, TaskServices } from '../../services/tasks-services';
 import { ToastService } from '../../services/toast-service';
 import { ToDoListItemInfo } from "../to-do-list-item-info/to-do-list-item-info";
+import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-to-do-item-view',
   imports: [ToDoListDescriptionChangeComponent, ToDoListItemComponent, ToDoListItemInfo],
@@ -15,15 +16,13 @@ import { ToDoListItemInfo } from "../to-do-list-item-info/to-do-list-item-info";
   styleUrl: './to-do-item-view.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToDoItemView implements OnInit {
+export class ToDoItemView  {
 
   isStart = true;
 
   isWantChangeTitle = false;
 
   route = inject(ActivatedRoute)
-
-  
 
   listService = inject(TaskServices);
 
@@ -33,11 +32,13 @@ export class ToDoItemView implements OnInit {
 
   readonly infoComponent = viewChild(ToDoListItemInfo);
 
-  readonly id = signal<number>(0);
+  readonly id = signal<number>(this.route.snapshot.params['id']); 
 
-  readonly task = signal<MyTask | null>(null)
+  readonly taskSignal = toSignal(this.listService.getTask(this.id()))
 
-  readonly title = computed(() => this.task()?.title )
+  readonly task = computed(() => this.taskSignal())
+
+  readonly title = computed(() => this.taskSignal()?.title)
 
   readonly description = computed(() => this.task()?.description)
 
@@ -51,62 +52,20 @@ export class ToDoItemView implements OnInit {
   }
   deleteTask(id: number): void {
     if (!this.task()) { return; }
-    this.task.update(() => { this.listService.delNewElId(id); return null });
+    this.listService.delNewElId(id); 
     this.toastService.addToast(`Delete task with id: ${id}`);
     this.router.navigate(['tasks'])
   }
   changeTitle(title: string | undefined): void {
     if (!this.task()) { return; }
-    this.task.update((t) =>
-    {  
-      if(!t){
-        console.log("Task is null now: " + t)
-        return t;
-      }
-      const taskNew: MyTask  = {
-        description: t?.description,
-        status: t.status,
-        id: t.id,
-        title: ''
-      }
-      if(!title){
-        console.log("Title is null: " + title)
-        return t;
-      }
-      taskNew.title = title;
-
-      this.listService.updateElPropId(this.id(), 'title', title);
-      return taskNew;
-    }
-    );
+    this.listService.updateElPropId(this.id(), 'title', title);
     this.infoComponent()?.rerender();
     this.toastService.addToast(`Change title element id: ${this.id()}`);
   }
   updateDescription(descriptionArg: string): void {
-   this.task.update((t) =>
-    {  
-      const taskNew: MyTask  = {
-        description: '',
-        status: t!.status,
-        id: t!.id,
-        title: t!.title
-      }
-      if(!descriptionArg) { return t; }
-      taskNew.description = descriptionArg;
-      this.listService.updateElPropId(this.id(), 'description', descriptionArg);
-      return taskNew;
-    })
+     if (!this.task()) { return; }
+    this.listService.updateElPropId(this.id(), 'description', descriptionArg);
     this.infoComponent()?.rerender();
     this.toastService.addToast(`Change desc element id: ${this.id()}`);
-  }
-  ngOnInit(): void 
-  {
-    const id = this.route.snapshot.params['id'];
-
-    this.id.set(id);
- 
-    this.listService.getTask(id, (t) => {
-      this.task.set(t)
-    })
   }
 }
