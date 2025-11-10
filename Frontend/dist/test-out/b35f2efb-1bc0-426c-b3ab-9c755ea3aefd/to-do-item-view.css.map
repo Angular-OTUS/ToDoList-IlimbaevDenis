@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/components/to-do-item-view/to-do-item-view.css"],
+  "sourcesContent": [":host{\r\n  padding-top: 10%;\r\n  padding-right: 20%;\r\n  padding-left: 20%;\r\n  display: flex;\r\n  justify-content:  space-between;\r\n  align-items: center;\r\n  margin: auto;\r\n  gap: 30px;\r\n}\r\n.container-for-item{\r\n  width: 50%;\r\n  padding: 200px;\r\n}\r\n.container-for-des{\r\n  width: 20%;\r\n}"],
+  "mappings": ";AAAA;AACE,eAAa;AACb,iBAAe;AACf,gBAAc;AACd,WAAS;AACT,mBAAkB;AAClB,eAAa;AACb,UAAQ;AACR,OAAK;AACP;AACA,CAAC;AACC,SAAO;AACP,WAAS;AACX;AACA,CAAC;AACC,SAAO;AACT;",
+  "names": []
+}

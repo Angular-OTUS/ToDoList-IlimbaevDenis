@@ -1,18 +1,30 @@
 import {  Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
-  textArray: ToastType[] = [];
+  private textArray = new BehaviorSubject<ToastType[]>([]);
 
-  addToast(text: string): void {
-    this.textArray.push({ id: this.textArray.length - 1, text: text });
+  getToasts() : Observable<ToastType[]>{
+    return this.textArray.asObservable();
   }
-  updateToast(id: number, text: string): void {
-    const obj = this.textArray[id];
-    obj.text = text;
+  getValue(): ToastType[]{
+    return this.textArray.value;
+  }
+  addToast(text: string): void {
+    const arr = this.textArray.value;
+    arr.push({ id: arr.length - 1, text: text });
+    this.textArray.next(arr);
   }
   deleteToast(id: number): void {
-    this.textArray.splice(id, 1);
+    
+    const arr = this.textArray.value;
+
+    const index = arr.findIndex(x => x.id === id);
+    
+    arr.splice(index, 1);
+
+    this.textArray.next(arr);
   }
 }
 export type ToastType = {

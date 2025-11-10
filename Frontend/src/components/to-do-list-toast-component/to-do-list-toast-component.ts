@@ -18,6 +18,7 @@ import {
 import { ToastService, ToastType } from '../../services/toast-service';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-to-do-list-toast-component',
   imports: [CommonModule],
@@ -26,7 +27,12 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoListToastComponent implements AfterViewInit, OnDestroy {
-  appColor: Array<string> = [
+
+  toastService = inject(ToastService);
+  renderer = inject(Renderer2);
+  changeDetection = inject(ChangeDetectorRef);
+  readonly toastes = toSignal(this.toastService.getToasts());
+  appColor = [
     '#007bff',
     '#2d0de0ff',
     '#28a745',
@@ -35,36 +41,30 @@ export class ToDoListToastComponent implements AfterViewInit, OnDestroy {
     '#17a2b8',
     '#e218b0ff',
   ];
-
   interavalForOutputToast = 2000; // ms
-
-  toastService = inject(ToastService);
-  renderer = inject(Renderer2);
-  changeDetection = inject(ChangeDetectorRef);
   private itemCounter = 0;
   private intervalId?: number;
-
-  readonly toastes = signal(this.toastService.textArray);
   @ViewChild('mylist', { static: false }) nativeEl?: ElementRef;
-  ngAfterViewInit() {
+  
+  ngAfterViewInit() : void {
     this.showToast();
   }
-  ngOnDestroy() {
+  ngOnDestroy() : void {
     clearInterval(this.intervalId);
   }
 
-  showToast() {
+  showToast() : void {
     this.intervalId = setInterval(() => {
       this.ChangeDisplayItem();
     }, this.interavalForOutputToast);
   }
 
-  ChangeDisplayItem() {
+  ChangeDisplayItem() : void {
     this.changeDetection.detectChanges();
 
-    if (this.itemCounter >= this.toastes().length) return;
+    if (this.itemCounter >= this.toastes()!.length) { return; }
     console.log(this.nativeEl);
-    const item = this.toastes()[this.itemCounter];
+    const item = this.toastes()![this.itemCounter];
 
     const li = this.renderer.createElement('li');
     const p = this.renderer.createElement('p');

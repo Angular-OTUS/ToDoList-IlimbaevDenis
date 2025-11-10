@@ -3,7 +3,7 @@ import {
   _RecycleViewRepeaterStrategy,
   _VIEW_REPEATER_STRATEGY,
   isDataSource
-} from "./chunk-7JFPTVV7.js";
+} from "./chunk-KEIIANRR.js";
 import {
   RtlScrollAxisType,
   getRtlScrollAxisType,
@@ -13,27 +13,23 @@ import {
   BidiModule,
   Dir,
   Directionality
-} from "./chunk-MZGS3LLG.js";
+} from "./chunk-JGT4BK3R.js";
 import {
   Platform,
   coerceElement,
   coerceNumberProperty
-} from "./chunk-IRJ4NVPG.js";
-import "./chunk-DTS3Q5CM.js";
+} from "./chunk-YGZPPNTX.js";
+import "./chunk-YFOFK4BW.js";
 import "./chunk-S2XZWM2N.js";
 import {
   ApplicationRef,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  DOCUMENT,
-  DestroyRef,
   Directive,
   ElementRef,
   Inject,
   Injectable,
-  InjectionToken,
-  Injector,
   Input,
   IterableDiffers,
   NgModule,
@@ -48,12 +44,7 @@ import {
   ViewEncapsulation,
   afterNextRender,
   booleanAttribute,
-  effect,
-  forwardRef,
-  inject,
   setClassMetadata,
-  signal,
-  untracked,
   ɵɵInheritDefinitionFeature,
   ɵɵNgOnChangesFeature,
   ɵɵProvidersFeature,
@@ -61,8 +52,6 @@ import {
   ɵɵclassProp,
   ɵɵdefineComponent,
   ɵɵdefineDirective,
-  ɵɵdefineInjectable,
-  ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵdomElement,
   ɵɵdomElementEnd,
@@ -73,7 +62,20 @@ import {
   ɵɵqueryRefresh,
   ɵɵstyleProp,
   ɵɵviewQuery
-} from "./chunk-E5BI2OSN.js";
+} from "./chunk-4OW6M2IM.js";
+import {
+  DOCUMENT,
+  DestroyRef,
+  InjectionToken,
+  Injector,
+  effect,
+  forwardRef,
+  inject,
+  signal,
+  untracked,
+  ɵɵdefineInjectable,
+  ɵɵdefineInjector
+} from "./chunk-URSVDFV4.js";
 import {
   Observable,
   Subject,

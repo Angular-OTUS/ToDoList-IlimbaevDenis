@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/components/to-do-list-item-checkbox-component/to-do-list-item-checkbox-component.css"],
+  "sourcesContent": [".to-list__item__status-box {\r\n  width: 50px;\r\n  padding: 10px;\r\n  background-color: white;\r\n  border: solid;\r\n  border-color: white;\r\n  border-radius: 12px;\r\n  margin-right: 10px;\r\n  height: 72%;\r\n  -webkit-box-shadow: 3px 13px 8px 0px rgba(34, 60, 80, 0.2);\r\n  -moz-box-shadow: 3px 13px 8px 0px rgba(34, 60, 80, 0.2);\r\n  box-shadow: 3px 13px 8px 0px rgba(34, 60, 80, 0.2);\r\n  overflow-x: hidden;\r\n}\r\ninput[type='checkbox'] {\r\n  transform: scale(1.5);\r\n}\r\n.to-list__item__status-box label {\r\n  color: black;\r\n  font-family: 'Roboto Serif', serif;\r\n  font-size: 10px;\r\n  font-weight: 600;\r\n}\r\n.to-list__item__status-box__input {\r\n  background-color: black;\r\n}\r\n.to-list__item__status-box__input:checked {\r\n  background-color: black;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAC;AACC,SAAO;AACP,WAAS;AACT,oBAAkB;AAClB,UAAQ;AACR,gBAAc;AACd,iBAAe;AACf,gBAAc;AACd,UAAQ;AACR,sBAAoB,IAAI,KAAK,IAAI,IAAI,KAAK,EAAE,EAAE,EAAE,EAAE,EAAE,EAAE;AACtD,mBAAiB,IAAI,KAAK,IAAI,IAAI,KAAK,EAAE,EAAE,EAAE,EAAE,EAAE,EAAE;AACnD,cAAY,IAAI,KAAK,IAAI,IAAI,KAAK,EAAE,EAAE,EAAE,EAAE,EAAE,EAAE;AAC9C,cAAY;AACd;AACA,KAAK,CAAC;AACJ,aAAW,MAAM;AACnB;AACA,CAjBC,0BAiB0B;AACzB,SAAO;AACP,eAAa,cAAc,EAAE;AAC7B,aAAW;AACX,eAAa;AACf;AACA,CAAC;AACC,oBAAkB;AACpB;AACA,CAHC,gCAGgC;AAC/B,oBAAkB;AACpB;",
+  "names": []
+}

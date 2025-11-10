@@ -6,6 +6,7 @@
   <app-to-do-button-component
     myTitle="Change description"
     [(styles)]="stylesForButton"
+    (click)="innerDescription = ''"
     (myClickChange)="onChange()"
   />
 </div>
