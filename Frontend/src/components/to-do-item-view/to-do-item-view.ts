@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, linkedSignal, OnInit, signal, viewChild, viewChildren,
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject, linkedSignal, OnInit, signal, viewChild, viewChildren,
  } from '@angular/core';
 import { ToDoListDescriptionChangeComponent } 
 from "../to-do-list-description-change-component/to-do-list-description-change-component";
@@ -30,15 +30,17 @@ export class ToDoItemView  {
 
   router = inject(Router);
 
+  rerender = inject(ChangeDetectorRef);
+
   readonly infoComponent = viewChild(ToDoListItemInfo);
 
   readonly id = signal<number>(this.route.snapshot.params['id']); 
 
   readonly taskSignal = toSignal(this.listService.getTask(this.id()))
 
-  readonly task = computed(() => this.taskSignal())
+  readonly task = linkedSignal(() => this.taskSignal())
 
-  readonly title = computed(() => this.taskSignal()?.title)
+  readonly title = computed(() => this.task()?.title)
 
   readonly description = computed(() => this.task()?.description)
 
@@ -57,15 +59,33 @@ export class ToDoItemView  {
     this.router.navigate(['tasks'])
   }
   changeTitle(title: string | undefined): void {
-    if (!this.task()) { return; }
+    if (!this.task() || !title) { return; }
+    this.updateTask('title', title);
+    this.rerender.detectChanges();
     this.listService.updateElPropId(this.id(), 'title', title);
     this.infoComponent()?.rerender();
     this.toastService.addToast(`Change title element id: ${this.id()}`);
   }
   updateDescription(descriptionArg: string): void {
      if (!this.task()) { return; }
+     this.updateTask('description', descriptionArg);
     this.listService.updateElPropId(this.id(), 'description', descriptionArg);
+    this.rerender.markForCheck();
     this.infoComponent()?.rerender();
     this.toastService.addToast(`Change desc element id: ${this.id()}`);
   }
+  private updateTask(propertyForChange: keyof MyTask, newValue: any): void{
+    this.task.update(v => {
+      if(!v) {return v;}
+      const taskV: Partial<MyTask> = {
+        title: v.title,
+        id: v.id,
+        description: v.description,
+        status: v.status
+      };
+      taskV[propertyForChange] = newValue;
+      return taskV as MyTask;
+    })
+  }
+
 }
