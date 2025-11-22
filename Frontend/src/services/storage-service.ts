@@ -1,61 +1,36 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, filter, map, never, Observable, Subscription } from "rxjs";
-import { isTask, Root, TaskDelegate } from "./fake-api-service";
+import { inject, Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { MyTask } from "./tasks-services";
+import { MyTaskStore } from "./store-tasks";
+import { toObservable } from "@angular/core/rxjs-interop";
 
 @Injectable({
   providedIn: 'root',
 })
+//facade
 export class StorageService {
-    private store = new BehaviorSubject<Root | never[]>([]);
-    takeUp(tasks: MyTask[]): void{
-        const root: Root = {
-            tasks: tasks
-        };
-        this.store.next(root);
-    }
-    getTasksObject(): MyTask[]{
-        const val = this.store.value
-        if(!isTask(val)) { return []; }
-        return val.tasks;
+    private store = inject(MyTaskStore);
+    constructor(){
+        this.store.loadTasks();
     }
     getTasks(): Observable<MyTask[]> {
-        return this.store.asObservable().pipe(
-             map(x => isTask(x) ? x.tasks : []),
-        )
+        return toObservable(this.store.getTasks());
     }
-    getTask(id: number): Observable<MyTask>{
-        return this.store.asObservable().pipe(
-            map(x => isTask(x) ? x.tasks.find(j => j.id === id) : undefined ),
-            filter(x => isNotUnderfined(x))
-        );
+    getTask(id: number): MyTask{
+        return this.store.getTask(id)!;
     }
     addTask(task: MyTask): void {
-        const tasks = this.getTasksObject();
-        
-        tasks.push(task);
-
-        this.takeUp(tasks)
+       this.store.addTask(task);
     }
     deleteTask(id: number): void {
-        const tasks = this.getTasksObject();
-
-        const index = tasks.findIndex(x => x.id === id);
-        
-        tasks.splice(index, 1);
-
-        this.takeUp(tasks);
+        this.store.deleteTask(id);
     }
     updateTask(id: number, property: keyof Omit<MyTask, "id">, newValue: any): void {
-        const task = this.getTasksObject().find(x => x.id === id);
+        const task = this.getTask(id);
 
-        if(!task) {  return; }
+        task[property] = newValue;
 
-        task[property] = newValue
-
-        this.deleteTask(id);
-
-        this.addTask(task);
+        this.store.updateTask(id, task);
     }
     
 }
