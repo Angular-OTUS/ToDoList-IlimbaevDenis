@@ -6,12 +6,15 @@
     background-color: white;
     padding: 30px;
     padding-bottom: 60px;
+    margin: auto;
+    max-width: 100%;
     width: 30%;
     border-color: white;
     border-radius: 10px;
     -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
      box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    overflow-wrap: break-word;
 }
 .text-el{
     text-align: center;

@@ -63,7 +63,6 @@ export class ToDoListToastComponent implements AfterViewInit, OnDestroy {
     this.changeDetection.detectChanges();
 
     if (this.itemCounter >= this.toastes()!.length) { return; }
-    console.log(this.nativeEl);
     const item = this.toastes()![this.itemCounter];
 
     const li = this.renderer.createElement('li');

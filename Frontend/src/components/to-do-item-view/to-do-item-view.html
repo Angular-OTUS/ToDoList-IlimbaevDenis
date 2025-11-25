@@ -4,7 +4,7 @@
     [isStart]="isStart"
     [needTooltip]="false"
     [sharedId]="id()"
-    [statusIsCompleted]="status() === 'Completed'"
+    [statusIsCompleted]="status() == 'Completed'"
     [taskId]="id()"
     [textDiscriprion]="description()"
     [textTask]="title()"
@@ -12,6 +12,7 @@
     (dblclick)="activeChangeTitle()"
     (tasksChange)="deleteTask($event)"
     (textTaskChange)="changeTitle($event)"
+    (statusTaskChange)="changeStatus($event)"
   />
 <app-to-do-list-description-change-component
   [task]="task()"

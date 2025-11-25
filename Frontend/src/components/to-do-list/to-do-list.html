@@ -38,11 +38,11 @@
   <div class="container-for-adding-task__inputs">
     <mat-form-field class="container-for-adding-task__inputs__input">
       <mat-label> Add your new todo</mat-label>
-      <input appEnterControl matInput [(ngModel)]="article" />
+      <input appEnterControl matInput [(ngModel)]="article" [formControl]="addControlForm"/>
     </mat-form-field>
     <mat-form-field class="container-for-adding-task__inputs__textarea">
       <mat-label> Add description for your todo</mat-label>
-      <input appEnterControl matInput [(ngModel)]="description" />
+      <input appEnterControl matInput [(ngModel)]="description"  [formControl]="addControlForm"/>
     </mat-form-field>
   </div>
   <app-to-do-button-component

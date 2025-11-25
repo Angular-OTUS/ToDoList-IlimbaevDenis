@@ -1,7 +1,7 @@
 <div class="container">
   <mat-form-field>
     <mat-label> {{ task()?.description }}</mat-label>
-    <textarea appEnterControl matInput [(ngModel)]="innerDescription"></textarea>
+    <textarea appEnterControl matInput [(ngModel)]="innerDescription" [formControl]="descriptionFormControl"></textarea>
   </mat-form-field>
   <app-to-do-button-component
     myTitle="Change description"

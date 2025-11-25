@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
 
 @Component({
   selector: 'app-to-do-list-item-checkbox-component',
@@ -8,12 +8,14 @@ import { ChangeDetectionStrategy, Component, output } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoListItemCheckboxComponent {
+
   checkTask = false;
 
   readonly statusTaskChange = output<boolean>();
 
   changeStatus(): void {
     this.checkTask = !this.checkTask;
+    console.log("Change status")
     this.statusTaskChange.emit(this.checkTask);
   }
 }

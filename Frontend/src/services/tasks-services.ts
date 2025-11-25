@@ -11,8 +11,9 @@ export class TaskServices {
   tasksAPI = inject(FakeApiService);
   storage = inject(StorageService);
   addNewElId(newValue: MyTask): void{
-    this.tasksAPI.addTask(newValue).subscribe(() => {console.log("Add")});
+    console.log("add new inovke")
     this.storage.addTask(newValue);
+    this.tasksAPI.addTask(newValue).subscribe(() => {console.log("Add")});
   }
   addNewEl(arr: MyTask[], newValue: MyTask): MyTask[] {
     arr.push(newValue);
@@ -20,8 +21,8 @@ export class TaskServices {
     return arr;
   }
   delNewElId(id: number): void{
-    this.tasksAPI.deleteTask(id).subscribe(() => {console.log("Delete")});
     this.storage.deleteTask(id);
+    this.tasksAPI.deleteTask(id).subscribe(() => {console.log("Delete")});
   }
   delNewEl(arr: MyTask[], id: number): MyTask[] {
     const index = arr.indexOf(arr.find(x => x.id === id)!)
@@ -34,8 +35,8 @@ export class TaskServices {
     id: number,
     propertyForChange: K,
     newValue: any,): void{
-      this.tasksAPI.updateTask(id, propertyForChange, newValue);
       this.storage.updateTask(id, propertyForChange, newValue);
+      this.tasksAPI.updateTask(id, propertyForChange, newValue);
   }
   updateElProp<K extends keyof Omit<MyTask, 'id'>>(
     arr: MyTask[],
@@ -59,9 +60,7 @@ export class TaskServices {
   }
   getTasks() : Observable<MyTask[]> {
     const tasksWithApi = this.tasksAPI.getTasks();
-    tasksWithApi.subscribe((val) => "With API: " + console.log(val))
-    const tasksWithStorage = this.tasksAPI.getTasks();
-    tasksWithStorage.subscribe((val) => "With Storage: " + console.log(val))
+    const tasksWithStorage = this.storage.getTasksObserver();
     return merge(tasksWithApi, tasksWithStorage).pipe(
       mergeMap(arr => arr),
       scan((acc: MyTask[], value) => {

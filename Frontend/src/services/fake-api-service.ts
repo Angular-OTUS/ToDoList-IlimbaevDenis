@@ -16,13 +16,19 @@ export class FakeApiService  {
   private apiUrl = `http://localhost:5125/tasks`
 
   getTasks(): Observable<MyTask[]>{
+    let redflag = false;
     const obsr = this.httpClient.get<Root>(this.apiUrl).pipe(
         map(x => isTask(x) ? x.tasks : []),
         catchError(error => {
-          console.error('Error fetching data:', error);
+          redflag = true;
           return of([]); 
         }));
-    obsr.subscribe(tasks => this.storage.takeUp(tasks));
+        if(redflag) { return obsr; }
+    obsr.subscribe(tasks => {
+      for(const task of tasks){
+        this.storage.addTask(task);
+      }
+    });
     return obsr;
   }
   // post
@@ -30,12 +36,18 @@ export class FakeApiService  {
     return this.httpClient.post(
       this.apiUrl,
       task,
-    ).pipe(map(() => task));
+    ).pipe( 
+       catchError(error => {
+          return of(null); 
+        }),
+      map(() => task)
+    );
   }
   //put
   updateTask(id: number, property: keyof Omit<MyTask, 'id'>, newValue: any): Subscription {
     return this.getTasks().subscribe(tasks => {
       // eslint-disable-next-line eqeqeq
+      if(tasks.length == 0) return;  
       const task = tasks.find(x => x.id == id)!;
       task[property] = newValue;
       this.httpClient.put<Root>(

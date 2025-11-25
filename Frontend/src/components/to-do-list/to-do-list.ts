@@ -9,7 +9,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToDoListItemComponent } from '../to-do-list-item-component/to-do-list-item-component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,6 +24,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatRadioModule } from '@angular/material/radio';
 import { ROUTES_CONFIG } from '../../app/app.routes';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-to-do-list',
   imports: [
@@ -37,6 +38,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     CommonModule,
     EnterControl,
     ScrollingModule,
+    ReactiveFormsModule
   ],
   providers: [
     Router,
@@ -51,6 +53,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class ToDoList implements OnInit {
   listService = inject(TaskServices);
 
+  translate = inject(TranslateService);
+
   toastService = inject(ToastService);
 
   changeDetection = inject(ChangeDetectorRef);
@@ -61,6 +65,8 @@ export class ToDoList implements OnInit {
 
   route = inject(ActivatedRoute);
 
+  addControlForm = new FormControl('', [Validators.required, Validators.maxLength(20)]);
+
   article = '';
 
   isActiveChangeTitle = false;
@@ -70,7 +76,8 @@ export class ToDoList implements OnInit {
   isStart = false;
 
   stylesForButton = {
-    width: '200px',
+    width: '100%',
+    margin: 'auto',
     height: '100px',
     'background-color': '#a245b4ff',
     border: 'solid',
@@ -97,11 +104,10 @@ export class ToDoList implements OnInit {
     }, 500);
   }
   addTask(): void {
-    if (this.article === null || this.article?.trim() === '') {
+    if (!this.addControlForm.valid) {
       return;
     }
-    if (!this.tasks()) { return; }
-    const arr = this.tasks()!;
+    const arr = this.tasks() ?? [];
     this.listService.addNewEl(arr, {
       id: arr.length + 1,
       title: this.article,

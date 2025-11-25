@@ -14,7 +14,7 @@ import { ToDoButtonComponent } from '../to-do-button-component/to-do-button-comp
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MyTooltip } from '../../directives/my-tooltip/my-tooltip';
 import { TooltipStyleConfig } from '../../directives/my-tooltip/types/tooltip-style-config';
 import { ToDoListItemCheckboxComponent } 
@@ -30,6 +30,7 @@ from '../to-do-list-item-checkbox-component/to-do-list-item-checkbox-component';
     MatInputModule,
     MyTooltip,
     ToDoListItemCheckboxComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './to-do-list-item-component.html',
   styleUrl: './to-do-list-item-component.css',
@@ -37,6 +38,9 @@ from '../to-do-list-item-checkbox-component/to-do-list-item-checkbox-component';
 })
 export class ToDoListItemComponent  {
   newTitle = '';
+
+  titleFormControl = new FormControl('', [Validators.required, Validators.maxLength(20)])
+
   stylesForButton = {
     width: '100px',
     height: '80px',
@@ -86,7 +90,7 @@ export class ToDoListItemComponent  {
     this.tasksChange.emit(this.taskId());
   }
   changeText(): void {
-    if (this.newTitle === null || this.newTitle.trim() === '') { return; }
+    if (this.newTitle === null || this.newTitle.trim() === '' || !this.titleFormControl.valid) { return; }
     this.textTaskChange.emit(this.newTitle);
     this.endChange()
   }

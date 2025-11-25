@@ -1,24 +1,22 @@
 import { Signal } from "@angular/core";
 import { MyTask } from "./tasks-services"
 import {  patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { addEntity, removeEntity, setAllEntities, updateEntity, withEntities } from '@ngrx/signals/entities';
-type MyTaskState = {
-    tasks: MyTask[],
-    loading: boolean
-}
-const initialState: MyTaskState = {
-    tasks: [],
-    loading: false
-}
+import { addEntity, removeEntity, setAllEntities, updateEntities, updateEntity, withEntities } from '@ngrx/signals/entities';
+import  {withDevtools} from '@angular-architects/ngrx-toolkit'
+
+const initialState: MyTask[] = [
+ {   id: 0,
+    title: '',
+    description: '',
+    status: 'Progress'
+ }
+]
 export const MyTaskStore = signalStore(
     { providedIn: 'root' },
-    withState<MyTaskState>(initialState),
+    withState<MyTask[]>(initialState),
     withEntities<MyTask>(),
+    withDevtools('Task Storage'),
     withMethods((state) => ({
-        loadTasks: (): void => {
-            patchState(state, {loading: true});
-            patchState(state, setAllEntities(initialState.tasks), {loading: false})
-        },
         addTask: (task: MyTask): void => {
             patchState(state, addEntity(task))
         },
@@ -26,13 +24,14 @@ export const MyTaskStore = signalStore(
             patchState(state, removeEntity(id))
         },
         getTask: (id: number):  MyTask | undefined => {
-            return state.tasks().find(x => x.id === id)
+            return state.entities().find(x => x.id == id)
         },
         getTasks: (): Signal<MyTask[]> => {
-            return state.tasks
+            return state.entities
         },
-        updateTask: (id: number, newState: MyTask): void => {
-            patchState(state, updateEntity({id: id, changes: newState}))
+        updateTask: (id: number, newValue: MyTask): void => {
+            id -= 1;
+            patchState(state, removeEntity(id), addEntity(newValue))
         },
     }))
 )
