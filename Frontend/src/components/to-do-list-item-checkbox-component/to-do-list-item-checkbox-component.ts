@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-to-do-list-item-checkbox-component',
@@ -8,6 +9,8 @@ import { ChangeDetectionStrategy, Component, inject, output } from '@angular/cor
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoListItemCheckboxComponent {
+
+  translate = inject(TranslateService);
 
   checkTask = false;
 
