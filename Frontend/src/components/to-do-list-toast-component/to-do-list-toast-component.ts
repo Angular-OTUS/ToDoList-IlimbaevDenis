@@ -16,12 +16,12 @@ import {
   viewChild,
 } from '@angular/core';
 import { ToastService, ToastType } from '../../services/toast-service';
-import { CommonModule } from '@angular/common';
+
 import { Subject } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-to-do-list-toast-component',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './to-do-list-toast-component.html',
   styleUrl: './to-do-list-toast-component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

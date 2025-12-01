@@ -4,7 +4,7 @@
     <textarea appEnterControl matInput [(ngModel)]="innerDescription" [formControl]="descriptionFormControl"></textarea>
   </mat-form-field>
   <app-to-do-button-component
-    myTitle="Change description"
+    myTitle="{{'CHANGE-DESCRIPTION' | translate}}"
     [(styles)]="stylesForButton"
     (click)="innerDescription = ''"
     (myClickChange)="onChange()"

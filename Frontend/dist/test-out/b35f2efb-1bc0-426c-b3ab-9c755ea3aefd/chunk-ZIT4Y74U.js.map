@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/services/toast-service.ts"],
-  "sourcesContent": ["import {  Injectable } from '@angular/core';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class ToastService {\r\n  textArray: ToastType[] = [];\r\n\r\n  addToast(text: string): void {\r\n    this.textArray.push({ id: this.textArray.length - 1, text: text });\r\n  }\r\n  updateToast(id: number, text: string): void {\r\n    const obj = this.textArray[id];\r\n    obj.text = text;\r\n  }\r\n  deleteToast(id: number): void {\r\n    this.textArray.splice(id, 1);\r\n  }\r\n}\r\nexport type ToastType = {\r\n  id: number;\r\n  text: string;\r\n};\r\n"],
-  "mappings": ";;;;;;;;;;QAGa;;;;;AAHb;AAGO,IAAM,gBAAN,WAAkB;MACvB,YAAyB,CAAA;MAEzB,SAAS,MAAY;AACnB,aAAK,UAAU,KAAK,EAAE,IAAI,KAAK,UAAU,SAAS,GAAG,KAAU,CAAE;MACnE;MACA,YAAY,IAAY,MAAY;AAClC,cAAM,MAAM,KAAK,UAAU,EAAE;AAC7B,YAAI,OAAO;MACb;MACA,YAAY,IAAU;AACpB,aAAK,UAAU,OAAO,IAAI,CAAC;MAC7B;OAZuB,4BAAlB;AAAM,mBAAY,WAAA;MADxB,WAAW,EAAE,YAAY,OAAM,CAAE;OACrB,YAAY;;;",
-  "names": []
-}

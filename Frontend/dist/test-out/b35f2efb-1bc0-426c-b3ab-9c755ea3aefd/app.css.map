@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/app.css"],
-  "sourcesContent": [":host {\r\n  background-color: rgb(168, 165, 165);\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style: none;\r\n  box-sizing: border-box;\r\n  text-decoration: none;\r\n}\r\n\r\n"],
-  "mappings": ";AAAA;AACE,oBAAkB,IAAI,GAAG,EAAE,GAAG,EAAE;AAChC,UAAQ;AACR,WAAS;AACT,cAAY;AACZ,cAAY;AACZ,mBAAiB;AACnB;",
-  "names": []
-}

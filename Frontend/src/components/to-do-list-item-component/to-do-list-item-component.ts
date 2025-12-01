@@ -19,11 +19,13 @@ import { MyTooltip } from '../../directives/my-tooltip/my-tooltip';
 import { TooltipStyleConfig } from '../../directives/my-tooltip/types/tooltip-style-config';
 import { ToDoListItemCheckboxComponent } 
 from '../to-do-list-item-checkbox-component/to-do-list-item-checkbox-component';
+import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-to-do-list-item-component',
   imports: [
     ToDoButtonComponent,
     CommonModule,
+    TranslatePipe,
     MatInputModule,
     MatFormFieldModule,
     FormsModule,

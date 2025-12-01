@@ -12,15 +12,15 @@ import {
 } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ToDoButtonComponent } from '../to-do-button-component/to-do-button-component';
 import { MyTask } from '../../services/tasks-services';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-to-do-list-description-change-component',
-  imports: [MatInputModule, MatFormFieldModule, CommonModule, FormsModule, ToDoButtonComponent,ReactiveFormsModule],
+  imports: [TranslatePipe,MatInputModule, MatFormFieldModule, FormsModule, ToDoButtonComponent, ReactiveFormsModule],
   templateUrl: './to-do-list-description-change-component.html',
   styleUrl: './to-do-list-description-change-component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

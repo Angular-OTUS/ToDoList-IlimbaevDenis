@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/components/to-do-list-toast-component/to-do-list-toast-component.spec.ts"],
-  "sourcesContent": ["import { ComponentFixture, TestBed } from '@angular/core/testing';\r\n\r\nimport { ToDoListToastComponent } from './to-do-list-toast-component';\r\n\r\ndescribe('ToDoListToastComponent', () => {\r\n  let component: ToDoListToastComponent;\r\n  let fixture: ComponentFixture<ToDoListToastComponent>;\r\n\r\n  beforeEach(async () => {\r\n    await TestBed.configureTestingModule({\r\n      imports: [ToDoListToastComponent]\r\n    })\r\n    .compileComponents();\r\n\r\n    fixture = TestBed.createComponent(ToDoListToastComponent);\r\n    component = fixture.componentInstance;\r\n    fixture.detectChanges();\r\n  });\r\n\r\n  it('should create', () => {\r\n    expect(component).toBeTruthy();\r\n  });\r\n});\r\n"],
-  "mappings": ";;;;;;;;;;;;;;;;AAAA;;;AAEA;AAEA,aAAS,0BAA0B,MAAK;AACtC,UAAI;AACJ,UAAI;AAEJ,iBAAW,MAAW;AACpB,cAAM,QAAQ,uBAAuB;UACnC,SAAS,CAAC,sBAAsB;SACjC,EACA,kBAAiB;AAElB,kBAAU,QAAQ,gBAAgB,sBAAsB;AACxD,oBAAY,QAAQ;AACpB,gBAAQ,cAAa;MACvB,EAAC;AAED,SAAG,iBAAiB,MAAK;AACvB,eAAO,SAAS,EAAE,WAAU;MAC9B,CAAC;IACH,CAAC;;;",
-  "names": []
-}

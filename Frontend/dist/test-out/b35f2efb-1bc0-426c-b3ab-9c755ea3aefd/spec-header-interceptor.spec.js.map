@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/interceptors/header-interceptor.spec.ts", "src/interceptors/header-interceptor.ts"],
-  "sourcesContent": ["import { TestBed } from '@angular/core/testing';\r\nimport { HttpInterceptorFn } from '@angular/common/http';\r\nimport { headerInterceptor } from './header-interceptor';\r\n\r\ndescribe('headerInterceptor', () => {\r\n  const interceptor: HttpInterceptorFn = (req, next) =>\r\n    TestBed.runInInjectionContext(() => headerInterceptor(req, next));\r\n\r\n  beforeEach(() => {\r\n    TestBed.configureTestingModule({});\r\n  });\r\n\r\n  it('should be created', () => {\r\n    expect(interceptor).toBeTruthy();\r\n  });\r\n});\r\n", "import {  HttpInterceptorFn } from '@angular/common/http';\r\n\r\nexport const headerInterceptor: HttpInterceptorFn = (req, next) => {\r\n  \r\n  console.log(req.headers);\r\n\r\n  return next(req);\r\n};\r\n"],
-  "mappings": ";;;;;;;;;AAAA;;;ACEO,IAAM,oBAAuC,wBAAC,KAAK,SAAQ;AAEhE,UAAQ,IAAI,IAAI,OAAO;AAEvB,SAAO,KAAK,GAAG;AACjB,GALoD;;;ADEpD,SAAS,qBAAqB,MAAK;AACjC,QAAM,cAAiC,wBAAC,KAAK,SAC3C,QAAQ,sBAAsB,MAAM,kBAAkB,KAAK,IAAI,CAAC,GAD3B;AAGvC,aAAW,MAAK;AACd,YAAQ,uBAAuB,CAAA,CAAE;EACnC,CAAC;AAED,KAAG,qBAAqB,MAAK;AAC3B,WAAO,WAAW,EAAE,WAAU;EAChC,CAAC;AACH,CAAC;",
-  "names": []
-}

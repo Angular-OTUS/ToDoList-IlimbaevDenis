@@ -1,16 +1,15 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, inject, input, model } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-to-do-list-item-info',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './to-do-list-item-info.html',
   styleUrl: './to-do-list-item-info.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToDoListItemInfo {
   
-  translate = inject(TranslateService);
 
   changeDetectionRef = inject(ChangeDetectorRef);
 

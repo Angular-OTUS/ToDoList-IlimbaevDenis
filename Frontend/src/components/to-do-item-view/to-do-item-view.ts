@@ -9,6 +9,7 @@ import { ToastService } from '../../services/toast-service';
 import { ToDoListItemInfo } from "../to-do-list-item-info/to-do-list-item-info";
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-to-do-item-view',
   imports: [ToDoListDescriptionChangeComponent, ToDoListItemComponent, ToDoListItemInfo, ReactiveFormsModule],
@@ -27,6 +28,8 @@ export class ToDoItemView  {
   route = inject(ActivatedRoute)
 
   listService = inject(TaskServices);
+
+  translate = inject(TranslateService);
 
   toastService = inject(ToastService);
 
@@ -50,6 +53,8 @@ export class ToDoItemView  {
 
   readonly todoItems = viewChildren(ToDoListItemComponent);
 
+  readonly lang = signal(this.translate.getCurrentLang());
+
   activeChangeTitle(): void{
     this.isWantChangeTitle = true;
     this.isStart = false;
@@ -57,7 +62,8 @@ export class ToDoItemView  {
   deleteTask(id: number): void {
     if (!this.task()) { return; }
     this.listService.delNewElId(id); 
-    this.toastService.addToast(`Delete task with id: ${id}`);
+  
+    this.toastService.addToast(this.lang() === 'en' ? `Delete task with id: ${id}` :  `Удалён таск: ${id}`);
     this.router.navigate(['tasks'])
   }
   changeTitle(title: string | undefined): void {
@@ -87,7 +93,8 @@ export class ToDoItemView  {
       this.listService.updateElPropId(this.id(), propertyForChange, newValue);
       this.rerender.detectChanges();
       this.infoComponent()?.rerender();
-      this.toastService.addToast(`Change ${propertyForChange} element id: ${this.id()}`);
+      this.toastService.addToast(this.lang() === 'en' ? `Change ${propertyForChange} element id: ${this.id()}` : 
+      `Изменено ${propertyForChange} с id: ${this.id()}`);
       return taskV as MyTask;
     })
   }

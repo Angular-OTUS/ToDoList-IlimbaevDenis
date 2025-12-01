@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/directives/my-tooltip/my-tooltip.spec.ts"],
-  "sourcesContent": ["import { MyTooltip } from './my-tooltip';\r\n\r\ndescribe('MyTooltip', () => {\r\n  it('should create an instance', () => {\r\n    const directive = new MyTooltip();\r\n    expect(directive).toBeTruthy();\r\n  });\r\n});\r\n"],
-  "mappings": ";;;;;;;AAAA;AAEA,SAAS,aAAa,MAAK;AACzB,KAAG,6BAA6B,MAAK;AACnC,UAAM,YAAY,IAAI,UAAS;AAC/B,WAAO,SAAS,EAAE,WAAU;EAC9B,CAAC;AACH,CAAC;",
-  "names": []
-}
