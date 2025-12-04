@@ -97,7 +97,7 @@ export class ToDoList  {
   readonly tasksSignal = toSignal(this.listService.getTasks())
   
   readonly tasks = computed(() => this.tasksSignal());
-  
+
   addTask(): void {
     if (!this.addControlForm.valid) {
       return;

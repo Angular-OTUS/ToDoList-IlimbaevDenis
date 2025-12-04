@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   inject,
   OnInit,
 } from '@angular/core';
@@ -11,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { ToDoSpinnerService } from '../services/views/to-do-spinner-service';
 import { KindOfSpinner } from '../components/to-do-spinner/to-do-spinner';
 import { ToDoHeader } from "../components/to-do-header/to-do-header";
+import { delay } from 'rxjs';
+import { FakeApiService } from '../services/fake-api-service';
 @Component({
   selector: 'app-root',
   imports: [
@@ -27,12 +28,20 @@ import { ToDoHeader } from "../components/to-do-header/to-do-header";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App implements OnInit {
+
+  listService = inject(FakeApiService);
+
   spinner = inject(ToDoSpinnerService);
+
+  observer = this.listService.getTasks();
 
   ngOnInit(): void {
     this.spinner.showSpinner('#427b8c', KindOfSpinner.Elipse);
-    setTimeout(() => {
+    // RxJs ver
+    this.observer.pipe(
+      delay(100),
+    ).subscribe(() => {
       this.spinner.destroySpinner();
-    }, 500);
+    })
   }
 }

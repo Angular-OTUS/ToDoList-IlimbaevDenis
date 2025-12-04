@@ -37,7 +37,6 @@ export class ToDoSpinner {
     this.renderer.appendChild(this.base, this.baseEl);
     this.renderer.appendChild(this.host.nativeElement, this.base)
     this.calculateDiv();
-    console.log("Now kind of: " + this.kind() + " Color: " + this.color())
   }
 
   private calculateDiv(): void {

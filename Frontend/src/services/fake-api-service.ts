@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import {  inject, Injectable } from '@angular/core';
-import { catchError,    map,  Observable,  of, Subscription } from 'rxjs';
+import { catchError,    map,  Observable,  of, retry, Subscription } from 'rxjs';
 import { MyTask } from './tasks-services';
 import {  StorageService } from './storage-service';
 
@@ -18,8 +18,9 @@ export class FakeApiService  {
   getTasks(): Observable<MyTask[]>{
     let redflag = false;
     const obsr = this.httpClient.get<Root>(this.apiUrl).pipe(
+     
         map(x => isTask(x) ? x.tasks : []),
-        catchError(error => {
+        catchError(() => {
           redflag = true;
           return of([]); 
         }));

@@ -1,6 +1,6 @@
 import {  inject, Injectable } from '@angular/core';
 import { FakeApiService } from './fake-api-service';
-import { distinct, filter, map, merge, mergeMap,  Observable,  scan, Subscription } from 'rxjs';
+import { distinct, filter, map, merge, mergeMap,  Observable,  scan, Subject, Subscription, takeUntil } from 'rxjs';
 import { StorageService } from './storage-service';
 
 
@@ -61,7 +61,7 @@ export class TaskServices {
   getTasks() : Observable<MyTask[]> {
     const tasksWithApi = this.tasksAPI.getTasks();
     const tasksWithStorage = this.storage.getTasksObserver();
-    return merge(tasksWithApi, tasksWithStorage).pipe(
+    const tasks = merge(tasksWithApi, tasksWithStorage).pipe(
       mergeMap(arr => arr),
       scan((acc: MyTask[], value) => {
       if (!acc.find(v => v.id === value.id)) {
@@ -69,9 +69,11 @@ export class TaskServices {
        }
       return acc;
       }, []),
-      distinct()
+      distinct(),
     )
+    return tasks;
   }
+  
 }
 export type MyTask = {
   id: number;
