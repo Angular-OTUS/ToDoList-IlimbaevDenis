@@ -20,7 +20,7 @@
       <input appEnterControl matInput [(ngModel)]="newTitle" />
     </mat-form-field>
     <app-to-do-button-component
-      myTitle="Change title"
+      myTitle="{{'CHANGE-TITLE' | translate}}"
       [(styles)]="stylesForButtonChangeTitle"
       (myClickChange)="changeText()"
     />
@@ -35,10 +35,10 @@
   @if(visibleChanger()){
     <mat-form-field class="to-list__item__text__input">
       <mat-label>Change your title</mat-label>
-      <input appEnterControl matInput [(ngModel)]="newTitle" />
+      <input appEnterControl matInput [formControl]="titleFormControl" [(ngModel)]="newTitle"/>
     </mat-form-field>
     <app-to-do-button-component
-      myTitle="Change title"
+      myTitle="{{'CHANGE-TITLE' | translate}}"
       [(styles)]="stylesForButtonChangeTitle"
       (myClickChange)="changeText()"
     />
@@ -51,7 +51,7 @@
   }
   @if(visibleChanger()){
     <app-to-do-button-component
-    myTitle="Delete task"
+    myTitle="{{'DELETE-TASK' | translate}}"
     [(styles)]="stylesForButton"
     (myClickChange)="deleteTask()"
   />

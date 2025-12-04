@@ -2,19 +2,18 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  computed,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
   model,
-  NgZone,
   OnInit,
   signal,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToDoListItemComponent } from '../to-do-list-item-component/to-do-list-item-component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { CommonModule } from '@angular/common';
+// import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToDoButtonComponent } from '../to-do-button-component/to-do-button-component';
 import { EnterControl } from '../../directives/enter-control-directive/enter-control';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -22,22 +21,29 @@ import { MyTask, TaskServices } from '../../services/tasks-services';
 import { ToastService } from '../../services/toast-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatRadioModule } from '@angular/material/radio';
+import { ROUTES_CONFIG } from '../../app/app.routes';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { HttpClient} from '@angular/common/http';
+import { ToDoSpinnerService } from '../../services/views/to-do-spinner-service';
+import { KindOfSpinner, ToDoSpinner } from '../to-do-spinner/to-do-spinner';
 @Component({
   selector: 'app-to-do-list',
   imports: [
+    TranslatePipe,
     FormsModule,
     ToDoListItemComponent,
     ToDoButtonComponent,
     MatInputModule,
     MatFormFieldModule,
     MatRadioModule,
-    NgxSpinnerModule,
-    CommonModule,
     EnterControl,
     ScrollingModule,
-  ],
+    ReactiveFormsModule
+],
   providers: [
     Router,
+    ToDoSpinnerService
   ],
   templateUrl: './to-do-list.html',
   styleUrl: './to-do-list.css',
@@ -46,18 +52,20 @@ import { MatRadioModule } from '@angular/material/radio';
   
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ToDoList implements OnInit {
+export class ToDoList  {
   listService = inject(TaskServices);
+ 
+  translate = inject(TranslateService);
 
   toastService = inject(ToastService);
 
   changeDetection = inject(ChangeDetectorRef);
   
-  spinner = inject(NgxSpinnerService);
-
   router = inject(Router);
 
   route = inject(ActivatedRoute);
+
+  addControlForm = new FormControl('', [Validators.required, Validators.maxLength(20)]);
 
   article = '';
 
@@ -68,7 +76,8 @@ export class ToDoList implements OnInit {
   isStart = false;
 
   stylesForButton = {
-    width: '200px',
+    width: '100%',
+    margin: 'auto',
     height: '100px',
     'background-color': '#a245b4ff',
     border: 'solid',
@@ -76,6 +85,7 @@ export class ToDoList implements OnInit {
     'border-color': 'white',
     color: 'white',
   };
+
   readonly description = model<string>();
 
   readonly filter = signal<string>('Progress');
@@ -84,42 +94,30 @@ export class ToDoList implements OnInit {
 
   readonly isLoading = signal<boolean>(true);
 
-  readonly tasks = signal<MyTask[] | null>(null);
+  readonly tasksSignal = toSignal(this.listService.getTasks())
   
-  ngOnInit(): void {
-    this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-      this.isLoading.set(false);
-    }, 500);
-    this.listService.getTasks((list) => {
-      console.log(list);
-      this.tasks.set(list)
-    } )
-  }
+  readonly tasks = computed(() => this.tasksSignal());
+
   addTask(): void {
-    if (this.article === null || this.article?.trim() === '') {
+    if (!this.addControlForm.valid) {
       return;
     }
-    if (!this.tasks()) { return; }
-    this.tasks.update((arr) =>
-      this.listService.addNewEl(arr!, {
-        id: this.tasks()!.length,
-        title: this.article,
-        description: this.description(),
-        status: 'Progress',
-      }),
+    const arr = this.tasks() ?? [];
+    this.listService.addNewEl(arr, {
+      id: arr.length + 1,
+      title: this.article,
+      description: this.description(),
+      status: 'Progress',
+    }
     );
-    this.toastService.addToast(`Add task: ${this.article}`);
+    const lang = this.translate.getCurrentLang()
+    this.toastService.addToast( lang === 'en' ? `Add task: ${this.article} ` : `Добавлено задание ${this.article}`);
   }
   changeToDoListItemOnPreview(id: number): void {
-
     // eslint-disable-next-line eqeqeq
     console.log((this.tasks()?.find(x => x.id == id) as MyTask));
 
-    this.router.navigate(['tasks/', id]);
-
-
+    this.router.navigate([ROUTES_CONFIG.BACKLOG, id]);
   }
   clickOnRadioButton(): void {
 

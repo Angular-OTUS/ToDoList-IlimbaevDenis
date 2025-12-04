@@ -1,0 +1,37 @@
+:host{
+    width: 100%;
+    z-index: 2;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 3vh;
+    background: #ddcfe8;
+    background: linear-gradient(322deg,rgba(221, 207, 232, 1) 0%, rgba(231, 230, 235, 1) 100%);
+    border-radius: 0px 0px 10px 10px;
+}
+.title{
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Roboto Serif', serif;
+  font-weight: bold;
+  color: #68339e;
+  margin-left: 20px;
+}
+.buttons{
+    width: 20%;
+}
+.buttons button{
+    background-color: black;
+    width: 50%;
+    height: 60px;
+    opacity: 1;
+    border: none;
+} 
+.buttons button:hover{
+    opacity: 0.8;
+}
+.buttons button p {
+    color: white;
+
+}

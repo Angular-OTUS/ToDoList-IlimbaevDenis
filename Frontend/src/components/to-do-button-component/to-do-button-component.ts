@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, contentChild,
-   ElementRef, model, output, 
+   ElementRef, inject, model, output, 
    OutputEmitterRef,
    } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-to-do-button-component',
   imports: [CommonModule],
@@ -12,6 +13,8 @@ import { ChangeDetectionStrategy, Component, computed, contentChild,
   standalone: true,
 })
 export class ToDoButtonComponent {
+   translate = inject(TranslateService);
+
    readonly titleWithAttribute = model<string>("", {alias: "myTitle"});
 
    readonly titleWithContent = contentChild(ElementRef);

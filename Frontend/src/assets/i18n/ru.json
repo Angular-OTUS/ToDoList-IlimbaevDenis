@@ -1,0 +1,18 @@
+{
+    
+    "PROGRESS": "В процессе",
+    "COMPLETED": "Завершенно",
+    "HEADER": "Список задач",
+    "TITLE": "Название",
+    "STATUS" : "Статус",
+    "DESCRIPTION": "Описание",
+    "ELEMENTS404": "Элемент не найден",
+    "ADD-TASK": "Добавить новое задание",
+    "ADD-DESCRIPTION": "Добавить описание",
+    "CHANGE-TITLE": "Изменить название",
+    "DELETE-TASK": "Удалить задание",
+    "CHANGE-DESCRIPTION": "Изменить описание",
+    "COMPLETED-TASK": "Ты завершил?"
+
+
+}

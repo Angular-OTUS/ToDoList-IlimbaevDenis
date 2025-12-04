@@ -1,0 +1,18 @@
+{
+  
+    "PROGRESS": "Progress",
+    "COMPLETED": "Completed",
+    "HEADER": "Todo List",
+    "TITLE": "Title",
+    "STATUS" : "Status",
+    "DESCRIPTION": "Description",
+    "ELEMENTS404": "Elements not found",
+    "ADD-TASK": "Add your new todo",
+    "ADD-DESCRIPTION": "Add description for your todo",
+    "CHANGE-TITLE": "Change your title",
+    "DELETE-TASK": "Delete task",
+    "CHANGE-DESCRIPTION": "Change description",
+    "COMPLETED-TASK": "Are you completed?"
+
+
+}
